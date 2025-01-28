@@ -1,0 +1,20 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+    <SelectDialog
+        id="salesOrgValueHelp"
+        noDataText="Loading..."
+        title="Select Sales Organization"
+        search="onsalesOrgValueHelpSearch"
+        liveChange="onsalesOrgValueHelpSearch"
+        confirm="onsalesOrgValueConfirmItem"
+        items="{salesOrgDataModel>/}"
+        initialFocus="SearchField">
+        <StandardListItem id="salesOrgList" 
+            title="{salesOrgDataModel>}"
+            description=""
+            iconDensityAware="false"
+            iconInset="false"
+            type="Active" />
+    </SelectDialog>
+</core:FragmentDefinition>

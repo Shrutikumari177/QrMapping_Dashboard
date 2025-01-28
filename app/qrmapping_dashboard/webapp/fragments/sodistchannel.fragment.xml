@@ -1,0 +1,20 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+    <SelectDialog
+        id="distchannelValueHelpValueHelp"
+        noDataText="Loading..."
+        title="Select Distribution Channel"
+        search="ondistchannelValueHelpSearch"
+        liveChange="ondistchannelValueHelpSearch"
+        confirm="ondistchannelValueConfirmItem"
+        items="{distDataModel>/}"
+        initialFocus="SearchField">
+        <StandardListItem id="_IDGenStandardListItem4" 
+            title="{distDataModel>}"
+            description=""
+            iconDensityAware="false"
+            iconInset="false"
+            type="Active" />
+    </SelectDialog>
+</core:FragmentDefinition>

@@ -1,0 +1,20 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+    <SelectDialog
+        id="salesOrgValueHelpValueHelp"
+        noDataText="Loading..."
+        title="Select Order Type"
+        search="onsalesOrgValueHelpSearch"
+        liveChange="onsalesOrgValueHelpSearch"
+        confirm="onsalesTypeValueConfirmItem"
+        items="{salesOrderTypeModel>/}"
+        initialFocus="SearchField">
+        <StandardListItem id="_IDGenStandardListItem8" 
+            title="{salesOrderTypeModel>SalesOrderType}"
+            description=""
+            iconDensityAware="false"
+            iconInset="false"
+            type="Active" />
+    </SelectDialog>
+</core:FragmentDefinition>

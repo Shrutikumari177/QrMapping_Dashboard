@@ -1,0 +1,87 @@
+GET http://localhost:4004/odata/v4/qrmappingservice/MaterialBox?$filter=SerialNo eq '10011195'
+
+
+####
+PATCH http://localhost:4004/odata/v4/qrmappingservice/InnerContainer(ICID='20250127IC00000001',ICQRCode='11570GLCFH',ICQRCodeURL='https://api.qrserver.com/v1/create-qr-code/?size=600x600&data=%7B%22ICID%22%3A%2220250127IC00000001%22%2C%22ICQRCode%22%3A%2211570GLCFH%22%7D')
+Content-Type: application/json
+
+{
+  "OC_OCID": "20250127OC10000000",
+  "OC_OCQRCode": "41253FFBHC",
+  "OC_OCQRCodeURL": "https://api.qrserver.com/v1/create-qr-code/?size=600x600&data=%7B%22OCID%22%3A%2220250127OC10000000%22%2C%22OCQRCode%22%3A%2241253FFBHC%22%7D"
+}
+
+
+
+
+###
+PATCH http://localhost:4004/odata/v4/qrmappingservice/InnerContainer(ICID='20250127IC00000001',ICQRCodeURL='',ICQRCode='')
+Content-Type: application/json
+
+{
+
+  "OC_OCID": "20250127OC10000000",
+  "OC_OCQRCode": "41253FFBHC",
+  "OC_OCQRCodeURL": "https://api.qrserver.com/v1/create-qr-code/?size=600x600&data=%7B%22OCID%22%3A%2220250127OC10000000%22%2C%22OCQRCode%22%3A%2241253FFBHC%22%7D"
+}
+
+
+####
+PATCH http://localhost:4004/odata/v4/qrmappingservice/MaterialBox(SerialNo='10011194',BoxQRCode='')
+Content-Type: application/json
+
+{
+  "IC_ICID": "20250127IC00000001",
+  "BatchID":"1000000077"
+}
+
+###
+PATCH http://localhost:4004/odata/v4/qrmappingservice/OuterContainer(OCID='20250127OC10000000',OCQRCode='',OCQRCodeURL='')
+Content-Type: application/json
+
+{
+  "SalesOrder": "611",
+   "DealerId" :"1100000003",
+   "DealerName":"MRCF INDUSTRIES"
+
+}
+
+####
+
+GET http://localhost:4004/odata/v4/qrmappingservice/getProductionTrackingDashboardData?OCID='20250127OC10000000'
+
+
+###
+GET http://localhost:4004/odata/v4/qrmappingservice/getDistinctOrderType
+
+###
+GET http://localhost:4004/odata/v4/qrmappingservice/getSalesOrderTypevalues?SalesOrderType='OR'
+
+
+###
+GET http://localhost:4004/odata/v4/qrmappingservice/getScannedOCData?OCID='20250127OC10000000'
+
+###
+GET http://localhost:4004/odata/v4/qrmappingservice/getBatchOCValueHelp?BatchID='1000000077'
+###
+
+POST http://localhost:4004/odata/v4/qrmappingservice/A_SalesOrder
+Content-Type: application/json
+
+{
+  "SalesOrderType": "OR",
+  "SalesOrganization": "GSO1",
+  "DistributionChannel": "G1",
+  "OrganizationDivision": "G1",
+  "SoldToParty": "1100000003",
+  "to_Item": [
+    {
+      "Material": "2000000163",
+      "RequestedQuantity": "10",
+      "ProductionPlant": "GM01"    
+      
+    }
+  ]
+ 
+}
+

@@ -1,0 +1,20 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+    <SelectDialog
+        id="plantValueHelpValueHelp"
+        noDataText="Loading..."
+        title="Select Plant"
+        search="onplantValueHelpSearch"
+        liveChange="onplantValueHelpSearch"
+        confirm="onplantValueConfirmItem"
+        items="{/zplant_soTrack}"
+        initialFocus="SearchField">
+        <StandardListItem id="_IDGenStandardListItem7" 
+            title="{Plant}"
+            description="{Description}"
+            iconDensityAware="false"
+            iconInset="false"
+            type="Active" />
+    </SelectDialog>
+</core:FragmentDefinition>

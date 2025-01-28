@@ -1,0 +1,347 @@
+<mvc:View
+    controllerName="com.ingenx.qrmappingdashboard.controller.ProductionTrackingDashboard"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:l = "sap.ui.layout"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:tnt="sap.tnt"
+    xmlns:core="sap.ui.core"
+    displayBlock="true">
+
+    <ScrollContainer id="dashboard2_ScrollContainer" vertical="true" height="100%">
+        <tnt:ToolHeader id="d2shellOnlyMandatoryControls" class="sapUiTinyMargin header_nav">
+            <Title id="dashboard2_Title" class="page_title" text="Production Tracking Dashboard" wrapping="false">
+                <layoutData>
+                    <OverflowToolbarLayoutData id="dashboard2_OverflowToolbarLayoutData" priority="Disappear" />
+                </layoutData>
+            </Title>
+            <ToolbarSpacer id="dashboard2_ToolbarSpacer" />
+            
+        </tnt:ToolHeader>
+
+        <l:VerticalLayout id="dashboard2_VerticalLayout" width="100%">
+            <l:BlockLayout id="dashboard2_BlockLayout" background="Dashboard">
+
+             <l:BlockLayoutRow id="dashboard2_BlockLayoutRow3">
+                    <l:BlockLayoutCell id="dashboard2_GenBlockLayoutCell3" width="90%">
+                    <Label id="trackingDash_batchLabel" text="Batch ID" class="sapUiTinyMargin" design="Bold"/>
+                    <Input id="productionDashboard_batchId" width="15%" showValueHelp="true" valueHelpRequest="_onDashboardBatchValueHelp"/>
+                    <Label id="trackingDash_ocLabel" text="OC ID" class="sapUiTinyMargin sapUiLargeMarginBegin" design="Bold"/>
+                    <Input id="productionDashboard_ocID" width="15%" showValueHelp="true" valueHelpRequest="_onDashboardOCValueHelp"/>
+                    <Label id="trackingDash_datepickerLabel" text="Date" class="sapUiTinyMargin sapUiLargeMarginBegin" design="Bold" />
+                 <DatePicker width="15%" id="DP1" placeholder="Enter Date" change="handleChange" class="sapUiSmallMarginBottom" displayFormat="YYYY-MM-dd" valueFormat="YYYY-MM-dd"/>
+                    <Button id="trackingDash_goBtn" text="GO" type="Emphasized" class="sapUiSmallMarginBegin" press="_onGoButtonPress"/>
+                    </l:BlockLayoutCell>
+                </l:BlockLayoutRow>
+
+                <l:BlockLayoutRow id="dashboard_shapeLayout" visible="false">
+                    <l:BlockLayoutCell id="dashboard2_GenBlockLayoutCell" width="90%">
+                       <VBox id="trackingDash_firstLayoutVbox">
+                    <HBox 
+                        id="trackingDash_firstLayoutHBox"
+                        items="{orderModel>/}" 
+                        justifyContent="Center" 
+                        alignItems="Center">
+                        <items>
+                            <VBox id="trackingDash_firstLayoutInnerVbox" justifyContent="Center" alignItems="Center">
+                                <Image
+                                    id="trackingDash_containerIcon"
+                                    src="images/image.png"
+                                    alt="{orderModel>OCID}"
+                                    width="120px"
+                                    class="shape_image"
+                                    height="60px"
+                                    press=".onImageClick" />
+                                <Text 
+                                    id="trackingDash_containerIconOcCode"
+                                    text="{orderModel>OCID}" 
+                                    class="shape_text"
+                                    textAlign="Center" />
+                            </VBox>
+                        </items>
+                    </HBox>
+                </VBox>
+                    </l:BlockLayoutCell>
+                </l:BlockLayoutRow>
+
+
+                <l:BlockLayoutRow id="dashboard_ContainerDetailsLayout" visible="false">
+                    <l:BlockLayoutCell id="dashboard2_GenBlockLayoutCell2" width="90%">
+                    <Dialog
+                            id="dashboarDeatislDetailQrDialog"
+                            title="QR Code"
+                         >
+                            <customHeader>
+                                <Toolbar id="trackingDash_toolbar">
+                                    <Title text="QR Code" id="trackingDash_dialogTitle"/>
+                                    <ToolbarSpacer id="trackingDash_innerToolbar"/>
+                                    <Button
+                                        id="trackingDash_dialogCloseBtn"
+                                        icon="sap-icon://decline"
+                                        press="onCloseQRDialog"
+                                    />
+                                </Toolbar>
+                            </customHeader>
+                            <content>
+                                <Image
+                                    class="qrImage"
+                                    id="dashboardDetailsqrImage"
+                                    src=""
+                                    width="200px"
+                                    height="200px"
+                                />
+                            </content>
+                            <buttons>
+                                <Button
+                                    id="trackingDash_dialogPrintBtn"
+                                    text="Print QR"
+                                    press="onDashboardPrintQR"
+                                    type="Emphasized"
+                                />
+                            </buttons>
+                        </Dialog> 
+                              <IconTabBar
+            id="idIconTabBar"
+            select=".onFilterSelect"
+            class="sapUiResponsiveContentPadding">
+            <items>
+              <IconTabFilter id="tankDialogDetailsTab"
+                icon="sap-icon://detail-more"
+                iconColor="Positive"
+                text="OC Details"
+                key="initial">
+           <VBox id="tankDialogDetailsTabVBox" class="tank_info_box sapUiResponsiveMargin">
+             <FlexBox id="tankDialogDetailsTabFlexBox" class="fbox">
+             <HBox class="dash_hbox" id="trackingDash_ocCodeHbox">
+               <Text id="tankDialogDetailsTabTankNo" text="OC Code"  width="100%"/>
+               <Text text=":" id="tank_colon"/>  
+             </HBox>
+               <VBox id="f1" width="50%" class="ibox">
+               <Text id="tankDialogDetailsTabTankNoText" class="details_text" text="{fragmentModel>/OCID}"/>
+               </VBox>
+             </FlexBox>
+
+             <FlexBox id="tankDialogDetailsTabFlexBox1" class="fbox">
+             <HBox class="dash_hbox" id="trackingDash_batchIdHbox">
+               <Text id="tankDialogDetailsTabStorage" text="Batch ID"  width="100%"/>
+               <Text text=":" id="storage_colon"/>
+               </HBox>
+               <VBox id="f2" class="ibox" width="50%">
+               <Text id="tankDialogDetailsTabStorageText" class="details_text" text="{fragmentModel>/BatchID}"/>
+               </VBox>
+             </FlexBox>
+
+             <FlexBox id="tankDialogDetailsTabFlexBox2" class="fbox">
+             <HBox class="dash_hbox" id="trackingDash_dealerHbox">
+               <Text id="tankDialogDetailsTabPlant" text="Dealer"  width="100%"/>
+               <Text text=":" id="plant_colon"/>
+               </HBox>
+               <VBox id="f3" class="ibox" width="50%">
+               <Text id="tankDialogDetailsTabPlantText" class="details_text" text="{fragmentModel>/DealerId}" />
+               </VBox>
+             </FlexBox>
+
+             <FlexBox id="tankDialogDetailsTabFlexBox5" class="fbox">
+             <HBox class="dash_hbox" id="trackingDash_dealerNameHbox">
+               <Text id="tankDialogDetailsTabnt" text="Dealer Name"  width="100%"/>
+               <Text text=":" id="dname"/>
+               </HBox>
+               <VBox id="f6" class="ibox" width="50%">
+               <Text id="dnameText" class="details_text" text="{fragmentModel>/DealerName}" />
+               </VBox>
+             </FlexBox>
+
+             <FlexBox id="tankDialogDetailsTabFlexBox3" class="fbox">
+             <HBox class="dash_hbox" id="trackingDash_statusHbox">
+               <Text id="tankDialogDetailsTabDip" text="Status" />
+               <Text text=":" id="dipQty_colon"/>
+               </HBox>
+               <VBox id="f4" class="ibox" width="50%">
+               <Text id="tankDialogDetailsTabDipText"  class="details_text" text="{fragmentModel>/status}" />
+               </VBox>
+             </FlexBox>
+
+             <FlexBox id="tankDialogDetailsTabFlexBox4" class="fbox">
+             <HBox class="dash_hbox" id="trackingDash_mfgDateHbox">
+               <Text id="tankDialogDetailsTabTemp" text="Manufacturing Date" />
+               <Text text=":" id="temp_colon"/>
+               </HBox>
+                <VBox id="f5" class="ibox" width="50%">
+               <Text id="tankDialogDetailsTabTempText" class="details_text" text="{fragmentModel>/ManufactureDt}" />
+
+                 </VBox>
+             </FlexBox>
+
+             <FlexBox id="tankDialogDetailsTabFlexBox6" class="fbox" visible="false">
+             <HBox class="dash_hbox" id="trackingDash_expDateHbox">
+               <Text id="tankDialogDetailsexpp" text="Expiry Date" />
+               <Text text=":" id="exp_colon"/>
+               </HBox>
+                <VBox id="f7" class="ibox" width="50%">
+               <Text id="tankDialogDe" class="details_text" text="{fragmentModel>/ExpiryDt}" />
+
+                 </VBox>
+             </FlexBox>
+
+             <FlexBox id="tankDialogDetailsTabFlexBox7" class="fbox">
+             <HBox class="dash_hbox" id="trackingDash_ocQrCodeHbox">
+               <Text id="tankDialogDeocqesexpp" text=" OC QR Code" />
+               <Text text=":" id="qr_colon"/>
+               </HBox>
+                <VBox id="f8" class="ibox" width="50%">
+               <Link id="trackingDash_openQrLink" text="{fragmentModel>/OCQRCode}" press="_onOCQrCodeLink" />
+                 </VBox>
+             </FlexBox>
+           </VBox>
+      </IconTabFilter>   
+
+      
+
+
+        <!-- Enter IC Code Code -->
+			<IconTabFilter id="tankDialogEnterDipTab"
+				icon="sap-icon://create"
+				iconColor="Positive"
+				text="IC Details"
+        count="{path: 'fragmentModel>/ICs', formatter: '.countFormatter'}"
+				key="Heavy">   
+           <SearchField liveChange=".onSearchOCItem" id="trackingDash_icSearchField"/>
+               <Table
+                   class="OCborderedTable"
+                   id="dashboardOCproduct_ProductTable"
+                   items="{fragmentModel>/ICs}"
+                  selectionChange="onSelectionChange">
+                   <columns>
+                     <Column id="trackingDash_icCodeColumn" hAlign="Center">
+                       <header>
+                         <Text id="trackingDash_icCodeText" text="IC Code" />
+                       </header>
+                     </Column>
+                     <Column minScreenWidth="Tablet" id="trackingDash_batchIdColumn" demandPopin="true" hAlign="Center">
+                       <header>
+                         <Text text="Batch ID" id="trackingDash_batchIdext" />
+                       </header>
+                     </Column>
+                     <Column hAlign="Center" id="trackingDash_productCodeColumn" >
+                       <header>
+                         <Text text="Product Code" id="trackingDash_productText" />
+                       </header>
+                     </Column>
+                     <Column minScreenWidth="Tablet" demandPopin="true" id="trackingDash_mfgDateCodeColumn" hAlign="Center">
+                       <header>
+                         <Text text="Manufacturing Date" id="trackingDash_mfgDateText"/>
+                       </header>
+                     </Column>
+                       <Column hAlign="Center" id="trackingDash_expDateColumn">
+                       <header>
+                         <Text text="Expiry Date" id="trackingDash_expDateText" />
+                       </header>
+                     </Column>
+                     <Column hAlign="Center" id="trackingDash_productIdColumn">
+                       <header>
+                         <Text text="Production Order" id="trackingDash_productIdText" />
+                       </header>
+                     </Column>
+                     <Column hAlign="Center" id="trackingDash_icQrColumn">
+                       <header>
+                         <Text text="IC Qr Code" id="trackingDash_icQrText"/>
+                       </header>
+                     </Column>
+                     
+                   
+                   </columns>
+                   <ColumnListItem id="trackingDash_icColumnList" class="borderedRow" type="Navigation" press="onIcRowSelect">
+                     <cells>
+                       <Text id="trackingDash_icidValue" text="{fragmentModel>ICID}"/>
+                       <Text id="trackingDash_batchValue" text="{fragmentModel>BatchID}" />
+                        <Text id="trackingDash_materialValue" text="{fragmentModel>Material}" />
+                        <Text id="trackingDash_mfgDateValue" text="{fragmentModel>ManufactureDt}" />
+                        <Text id="trackingDash_expDateValue" text="{fragmentModel>ExpiryDt}" />
+                       <Text id="trackingDash_productOrderValue" text="{fragmentModel>ProductionOrder}" />
+                       <Link id="trackingDash_icQrCode" text="{fragmentModel>ICQRCode}" press="onDashboardICQrCode"/> 
+                       
+                     </cells>
+                   </ColumnListItem>
+                 </Table>    
+      </IconTabFilter> 
+
+      <IconTabFilter id="DialogBoxDetails"
+				icon="sap-icon://create"
+				iconColor="Positive"
+				text="Box Details"
+        enabled="false"
+        count="{path: 'boxModelData>/boxes', formatter: '.countFormatter'}"
+				key="boxKey">  
+                <SearchField id="trackingDash_boxSearchField" liveChange=".onSearchBoxItem"/>
+                 <Table
+                   class="OCborderedTable"
+                   id="detailsFragemnt_boxTable"
+                   items="{boxModelData>/boxes}"
+                  selectionChange="onSelectionChange">
+                   <columns>
+                     <Column hAlign="Center" id="trackingDash_serialNoColumn">
+                       <header>
+                         <Text text="Serial No" id="trackingDash_serialNoText" />
+                       </header>
+                     </Column>
+                      <Column hAlign="Center" id="trackingDash_boxbatchIdColumn">
+                       <header>
+                         <Text text="Batch ID" id="trackingDash_boxBatchIdText"/>
+                       </header>
+                     </Column>
+                     <Column minScreenWidth="Tablet" id="trackingDash_BoxProductCodeColumn" demandPopin="true" hAlign="Center">
+                       <header>
+                         <Text text="Product Code" id="trackingDash_boxProductCodeText" />
+                       </header>
+                     </Column>
+                     <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" id="trackingDash_boxMfgDateColumn" >
+                       <header>
+                         <Text text="Manufacturing Date" id="trackingDash_boxMfgDateText" />
+                       </header>
+                     </Column>
+                       <Column hAlign="Center" id="trackingDash_boxExpDateColumn">
+                       <header>
+                         <Text text="Expiry Date" id="trackingDash_boxExpDate"/>
+                       </header>
+                     </Column>
+                     <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" id="trackingDash_boxProductIdColumn" >
+                       <header>
+                         <Text text="Production Order" id="trackingDash_boxProductIdText" />
+                       </header>
+                     </Column>
+                    
+                     <Column hAlign="Center" id="trackingDash_boxQrCodeColumn">
+                       <header>
+                         <Text text=" Box Qr Code" id="trackingDash_boxQrCodeText" />
+                       </header>
+                     </Column>
+                     
+                     
+                   
+                   </columns>
+                   <ColumnListItem class="borderedRow" id="trackingDash_boxCoumnList">
+                     <cells>
+                       <Text id="trackingDash_boxSerialNoValue" text="{boxModelData>SerialNo}"/>
+                       <Text id="trackingDash_boxBatchIdValue" text="{boxModelData>BatchID}" />
+                        <Text id="trackingDash_boxMaterialValue" text="{boxModelData>Material}" />
+                      <Text id="trackingDash_boxMfgValue" text="{boxModelData>ManufactureDt}" />
+                        <Text id="trackingDash_boxExpDateValue" text="{boxModelData>ExpiryDt}" />
+                       <Text id="trackingDash_boxProductionOrderValue" text="{boxModelData>ProductionOrder}" />
+                       <Link text="{boxModelData>BoxQRCode}" id="trackingDash_boxQrCodeLink" press="onDashboardBoxQrCode"/>
+                     
+                     
+                     </cells>
+                   </ColumnListItem>
+                 </Table>
+
+        </IconTabFilter>
+
+		</items>
+	</IconTabBar>
+                    </l:BlockLayoutCell>
+                </l:BlockLayoutRow>
+            </l:BlockLayout>
+        </l:VerticalLayout>
+
+    </ScrollContainer>
+</mvc:View>

@@ -1,0 +1,94 @@
+{
+  "name": "qrmappingdashboard",
+  "version": "1.0.0",
+  "description": "A simple CAP project.",
+  "repository": "<Add your repository here>",
+  "license": "UNLICENSED",
+  "private": true,
+  "dependencies": {
+    "@cap-js/hana": "^1",
+    "@sap-cloud-sdk/http-client": "^3.25.0",
+    "@sap-cloud-sdk/resilience": "^3.25.0",
+    "@sap/cds": "^8",
+    "express": "^4"
+  },
+  "devDependencies": {
+    "@cap-js/cds-types": "^0.6",
+    "@cap-js/sqlite": "^1"
+  },
+  "scripts": {
+    "start": "cds-serve",
+    "watch-qrmapping_dashboard": "cds watch --open qrmapping_dashboard/webapp/index.html?sap-ui-xx-viewCache=false"
+  },
+  "cds": {
+    "server": {
+      "index": true
+    },
+    "requires": {
+      "ZTRACKTRACE_VALUEHELP_SRV": {
+        "kind": "odata-v2",
+        "model": "srv/external/ZTRACKTRACE_VALUEHELP_SRV",
+        "[production]": {
+          "credentials": {
+            "destination": "Ingenx_OData_SAP",
+            "path": "/sap/opu/odata/sap/ZTRACKTRACE_VALUEHELP_SRV"
+          }
+        },
+        "[development]": {
+          "credentials": {
+            "destination": "SandboxPO",
+            "path": "/sap/opu/odata/sap/ZTRACKTRACE_VALUEHELP_SRV"
+          }
+        },
+        "csrf": true,
+        "csrfInBatch": true
+      },
+      "IRMSZAPI_SALES_ORDER_SRV": {
+        "kind": "odata-v2",
+        "model": "srv/external/IRMSZAPI_SALES_ORDER_SRV",
+        "[production]": {
+          "credentials": {
+            "destination": "Ingenx_OData_SAP",
+            "path": "/sap/opu/odata/sap/API_SALES_ORDER_SRV"
+          }
+        },
+        "[development]": {
+          "credentials": {
+            "destination": "SandboxPO",
+            "path": "/sap/opu/odata/sap/API_SALES_ORDER_SRV"
+          }
+        },
+        "csrf": true,
+        "csrfInBatch": true
+      },
+      "ZTRACK_TRACE_SRV": {
+        "kind": "odata-v2",
+        "model": "srv/external/ZTRACK_TRACE_SRV",
+        "[production]": {
+          "credentials": {
+            "destination": "Ingenx_OData_SAP",
+            "path": "/sap/opu/odata/sap/ZTRACK_TRACE_SRV"
+          }
+        },
+        "[development]": {
+          "credentials": {
+            "destination": "SandboxPO",
+            "path": "/sap/opu/odata/sap/ZTRACK_TRACE_SRV"
+          }
+        },
+        "csrf": true,
+        "csrfInBatch": true
+      },
+      "QrGeneratorApp_edmx": {
+        "kind": "odata",
+        "model": "srv/external/QrGeneratorApp.edmx",
+        "credentials": {
+          "destination": "QRGeneratorApp"
+        }
+      }
+    },
+    "sql": {
+      "native_hana_associations": false
+    }
+  }
+}

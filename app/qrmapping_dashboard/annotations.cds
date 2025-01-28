@@ -1,0 +1,1 @@
+using qrmappingservice as service from '../../srv/Service';
