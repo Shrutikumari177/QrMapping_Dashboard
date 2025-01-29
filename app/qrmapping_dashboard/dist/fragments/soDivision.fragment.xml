@@ -1,0 +1,20 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+    <SelectDialog
+        id="divisionValueHelpValueHelp"
+        noDataText="Loading..."
+        title="Select Division"
+        search="ondivisionValueHelpSearch"
+        liveChange="ondivisionValueHelpSearch"
+        confirm="ondivisionValueConfirmItem"
+        items="{DivisionDataModel>/}"
+        initialFocus="SearchField">
+        <StandardListItem id="_IDGenStandardListItem5" 
+            title="{DivisionDataModel>}"
+            description=""
+            iconDensityAware="false"
+            iconInset="false"
+            type="Active" />
+    </SelectDialog>
+</core:FragmentDefinition>

@@ -1,0 +1,26 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core">  
+    <SelectDialog
+        id="icListDialog"
+        noDataText="Loading..."
+        title="Select IC Code"
+        liveChange="onMaterialFilterSearch"
+        search="onICCodeFilterSearch"
+        confirm="onICCodeSelection"
+        items="{dialogIcListModel>/}"
+        initialFocus="SearchField"
+        multiSelect="false"
+        
+    >
+        
+        <StandardListItem id="ICsStandardListItem" 
+            
+            title="{dialogIcListModel>}"
+            description=""
+            iconDensityAware="false"
+            iconInset="false"
+            type="Active" />
+            
+    </SelectDialog>
+</core:FragmentDefinition>

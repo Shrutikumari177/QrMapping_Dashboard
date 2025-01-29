@@ -1,0 +1,413 @@
+<mvc:View
+    controllerName="com.ingenx.qrmappingdashboard.controller.SalesOrderCreation"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:l="sap.ui.layout"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:tnt="sap.tnt"
+    xmlns:core="sap.ui.core"
+    displayBlock="true"
+    xmlns:ndc="sap.ndc"
+>
+    <ScrollContainer
+        id="cdashboard2_ScrollContainer1"
+        vertical="true"
+        height="100%"
+    >
+        <tnt:ToolHeader
+            id="c2shellOnlyMandatoryControwwls"
+            class="sapUiTinyMargin header_nav"
+        >
+            <Title
+                id="cdashboard2_Titwle"
+                textAlign="Center"
+                text="Sales Order Details"
+                class="page_title" 
+            >
+                <layoutData>
+                    <OverflowToolbarLayoutData
+                        id="cdashboard2_OverflowTowolbarLayoutData"
+                        priority="Disappear"
+                    />
+                </layoutData>
+            </Title>
+            <ToolbarSpacer id="cdashboard2_ToolbarSpacerw" />
+        </tnt:ToolHeader>
+
+        <l:VerticalLayout
+            id="cdashboard2_VerticalLayouwt"
+            width="100%"
+        >
+            <l:BlockLayout
+                id="cdashboard2_BlockLayoutw"
+                background="Dashboard"
+            >
+                <l:BlockLayoutRow id="cdashboard2_BlockLayoutRow3w">
+                    <l:BlockLayoutCell
+                        id="cdashboard2_GenBlockLayoutCellw3"
+                        width="90%"
+                    >
+                        <IconTabBar
+                            id="iconTabBar_createProductw"
+                            class="sapUiResponsiveContentPadding"
+                        >
+                            <items>
+                                <IconTabFilter
+                                    id="tabFilter_createProduct1"
+                                    text="Org Details"
+                                    icon="sap-icon://header"
+                                >
+                                    <form:SimpleForm
+                                        id="simpleForm_createProduct1"
+                                        editable="true"
+                                        class="sapUiTinyMargin"
+                                    >
+                                        <form:content>
+                                            <core:Title
+                                                id="title_createProduct122"
+                                            />
+                                            <Label
+                                                id="label_material_createProduct1"
+                                                text="Sales Order Type"
+                                                design="Bold"
+                                            />
+                                            <HBox id="soldTPBox_createProduct1">
+                                                <Input
+                                                    id="salesOrder_salesOrderType"
+                                                    width="220px"
+                                                    showValueHelp="true"
+                                                    valueHelpRequest="onSalesOrderTypeValueHelp"
+                                                />
+                                            </HBox>
+                                             <Label
+                                                id="orderTypeLabel_createProduct1"
+                                                text="Dealer"
+                                                design="Bold"
+                                            />
+                                            <HBox
+                                                id="orderTypeHBox_createProduct1"
+                                            >
+                                                <Input
+                                                    id="salesOrder_dealer"
+                                                    width="220px"
+                                                    editable="true"
+                                                    showValueHelp="true"
+                                                    valueHelpRequest="onCustomerValueHelp"
+                                                />
+                                            </HBox>
+                                             <Label
+                                                id="label_startDate_createProduct1"
+                                                text="Distribution Channel"
+                                                design="Bold"
+                                            />
+                                            <Input
+                                                id="salesOrder_distChannel"
+                                                change="onSelectDate"
+                                                width="220px"
+                                                showValueHelp="true"
+                                                valueHelpRequest="onDistributionTypeValueHelp"
+                                            />
+                                            <Label
+                                                id="label_endDate_creawteProduct"
+                                                text="Plant"
+                                                design="Bold"
+                                            />
+                                            <Input
+                                                id="salesOrder_plant"
+                                                change="onSelectDate"
+                                                width="220px"
+                                                showValueHelp="true"
+                                                valueHelpRequest="onPlantTypeValueHelp"
+                                            />
+
+                                            <core:Title
+                                                id="title_createProduct21"
+                                            />
+                                            
+                                            <Label
+                                                id="label_material_soDesc"
+                                                text="Sales Order Desc"
+                                                design="Bold"
+                                            />
+                                            <HBox id="soldTPBox_soDesc">
+                                                <Input
+                                                    id="salesOrder_salesOrderDesc"
+                                                    width="220px"
+                                                    editable="true"
+                                                />
+                                            </HBox>
+
+                                              <Label
+                                                id="label_productionPlant_createProduct1"
+                                                text="Sales Organization"
+                                                design="Bold"
+                                            />
+                                            <HBox
+                                                id="productionPlantHBox_createProduct1"
+                                            >
+                                                <Input
+                                                    id="salesOrder_salesOrg"
+                                                    width="220px"
+                                                    class="salesOrgDesc"
+                                                    showValueHelp="true"
+                                                    valueHelpRequest="onSalesOrgValueHelp"
+                                                />
+                                            </HBox>
+                                          
+                                           
+                                              <Label
+                                                id="label_productionPlant_crewateProduct"
+                                                text="Division"
+                                                design="Bold"
+                                            />
+                                            
+                                                <Input
+                                                    id="salesOrder_division"
+                                                    width="220px"
+                                                    class="salesOrgDesc"
+                                                    showValueHelp="true"
+                                                   valueHelpRequest="onDivisionValueHelp"
+                                                />
+                                        </form:content>
+                                    </form:SimpleForm>
+                                  
+                                </IconTabFilter>
+
+                                <IconTabFilter
+                                    id="iconTabFilter_goodIssue_createProductq"
+                                    key="itemDetails"
+                                    text="Materials"
+                                    icon="sap-icon://activity-items"
+                                >
+                                <l:VerticalLayout id="salesOrder_vLayout" width="100%">
+                                <l:BlockLayout id="salesOrder_bLaylout">
+                                <l:BlockLayoutRow id="salesOrder_rLaylout">
+                                <l:BlockLayoutCell id="salesOrder_cLaylout" width="100%">
+                               <HBox class="" id="saesOrder_hbox">
+                                <HBox id="salesOrder_innerHBox" class="scanner_btn sapUiTinyMarginBegin">
+                                <Label
+                                    id="salesOrder_ocQrScanLabel"
+                                    text="Scan OC QR "
+                                    class="sapUiSmallMarginEnd "
+                                    design="Bold"
+                                />
+                                <ndc:BarcodeScannerButton
+                                    id="salesOrder_ocQrScanButton"
+                                    width="10%"
+                                    scanSuccess="onPressOcQrScanner"
+                                    scanFail="onScanError"
+                                    class="onQrScannerClass"     
+                                    inputLiveUpdate="onScanLiveupdate"
+                                    disableBarcodeInputDialog="true"
+                                />
+                                </HBox>
+                                
+                                <HBox class="scanner_btn sapUiTinyMarginBegin" id="salesOrder_hbox2">
+                                <Label
+                                    id="salesOrder_icQrScanLabel"
+                                    text="Scan IC QR "
+                                    class="sapUiSmallMarginEnd "
+                                    design="Bold"
+                                />
+                                <ndc:BarcodeScannerButton
+                                    id="salesOrder_icQrScanButton"
+                                    width="10%"
+                                    scanSuccess="onPressIcQrScanner"
+                                    scanFail="onScanError"
+                                    class="onQrScannerClass" 
+                                    inputLiveUpdate="onScanLiveupdate"
+                                    disableBarcodeInputDialog="true"
+                                />
+                                </HBox>
+                                <HBox class="scanner_btn sapUiTinyMarginBegin" id="salesOrder_hbox3">
+                                <Label
+                                    id="salesOrder_boxQrScanLabel"
+                                    text="Scan Box QR "
+                                    class="sapUiSmallMarginEnd "
+                                    design="Bold"
+                                />
+                                <ndc:BarcodeScannerButton
+                                    id="salesOrder_boxQrScanButton"
+                                    width="10%"
+                                    scanSuccess="onPressBoxQrScanner"
+                                    scanFail="onScanError"
+                                    class="onQrScannerClass" 
+                                    inputLiveUpdate="onScanLiveupdate"
+                                    disableBarcodeInputDialog="true"
+                                />
+                                </HBox>
+                            </HBox>
+                        <Dialog
+                            id="salesOrderCreate_DetailQrDialog"
+                            title="QR Code"
+                         >
+                            <customHeader>
+                                <Toolbar id="salesOrder_outerTb">
+                                    <Title text="QR Code" id="salesOrder_dialogTitle"/>
+                                    <ToolbarSpacer id="salesOrder_innerTb" />
+                                    <Button
+                                        id="salesOrder_closeDialogBtn"
+                                        icon="sap-icon://decline"
+                                        press="onCloseQRDialog"
+                                    />
+                                </Toolbar>
+                            </customHeader>
+                            <content>
+                             
+                            </content>
+                            <buttons>
+                            </buttons>
+                        </Dialog>
+                    <Table
+                        id="salesOrderCreate_Table"
+                        width="auto"
+                        contextualWidth="Auto"
+                        class="borderedTable sapUiTinyMarginTop"
+                        sticky="ColumnHeaders"
+                        selectionChange="onSelectionChange"
+                        items="{salesOrderModelData>/}"
+                        
+                    >
+                        <headerToolbar>
+                            <OverflowToolbar id="salesOrderCreate__OverflowToolbar">
+                                <Title
+                                    id="salesOrderCreate__tTitle"
+                                    text="OC's Information"
+                                    textAlign="Center"
+                                    level="H2"
+                                />
+                                <ToolbarSpacer id="salesOrderCreate__tbs" />
+                            </OverflowToolbar>
+                        </headerToolbar>
+
+                        <columns>
+                        <Column
+                                id="salesOrderCreate__col0"
+                                hAlign="Center"
+                                mergeDuplicates="true"
+                            >
+                                <Label
+                                    id="salesOrderCreate__ocid"
+                                    text="OC Code"
+                                />
+                            </Column>
+                          
+                            <Column
+                                id="salesOrderCreate__col1"
+                                hAlign="Center"
+                                mergeDuplicates="true"
+                            >
+                                <Label
+                                    id="salesOrderCreate__icid"
+                                    text="IC Code"
+                                />
+                            </Column>
+                            <Column
+                                id="salesOrderCreate__col2"
+                                hAlign="Center"
+
+                            >
+                                <Label
+                                    id="salesOrderCreate__sno"
+                                    text="Serial No"
+                                />
+                            </Column>
+                            <Column
+                                id="salesOrderCreate__col3"
+                                hAlign="Center"
+                            >
+                                <Label
+                                    id="salesOrderCreate__productCode"
+                                    text="Product Code"
+                                />
+                            </Column>
+                          
+                            <Column
+                                id="salesOrderCreate__col5"
+                                hAlign="Center"
+                            >
+                                <Label
+                                    wrapping="true"
+                                    id="salesOrderCreate__mfgDate"
+                                    text="Manufacturing Date"
+                                />
+                            </Column>
+
+                              <Column
+                                id="salesOrderCreate__col4"
+                                hAlign="Center"
+                                visible="true"
+                            >
+                                <Label
+                                    id="salesOrderCreate__expDate"
+                                    text="Expiry Date"
+                                />
+                            </Column>
+                            
+                        </columns>
+
+                        <ColumnListItem
+                            id="salesOrderCreate__colListItem"
+                            class="borderedRow"
+                            press="onMaterialRowSelect"
+                        >
+                            <cells>
+                                <Text
+                                    id="salesOrderCreate__icIdText"
+                                    class="inputItem"
+                                    text="{salesOrderModelData>ocId}"
+                                />
+                                <Text
+                                    id="salesOrderCreate__BoxSerialNoText"
+                                    class="inputItem"
+                                    text="{salesOrderModelData>ICID}"
+                                />
+                                <Text
+                                    id="salesOrderCreate__materialText"
+                                    class="inputItem"
+                                    text="{salesOrderModelData>BoxSerialNo}"
+                                />
+                                <Text
+                                    id="salesOrderCreate__expDateText"
+                                    class="inputItem"
+                                    text="{salesOrderModelData>pOrder}"
+                                />
+                                <Text
+                                    id="salesOrderCreate__mfgDateText"
+                                    class="inputItem"
+                                    text="{salesOrderModelData>mfgDate}"
+                                />
+                                <Text
+                                    id="salesOrderCreate__prodOrderText"
+                                    class="inputItem"
+                                    text="{salesOrderModelData>expDate}"
+                                />
+                            </cells>
+                        </ColumnListItem>
+                    </Table>
+
+                                    <HBox
+                                        id="submitHBox_createProwduct"
+                                        justifyContent="End"
+                                    >
+                                        <Button
+                                            id="submitButton_creatweProduct"
+                                            text="Submit"
+                                            type="Emphasized"
+                                            press="onClickSumbitButton"
+                                            visible="true"
+                                        />
+                                    </HBox>
+                                </l:BlockLayoutCell>
+                                </l:BlockLayoutRow> 
+                                </l:BlockLayout>
+                                </l:VerticalLayout>
+                                </IconTabFilter>
+                            </items>
+                        </IconTabBar>
+                    </l:BlockLayoutCell>
+                </l:BlockLayoutRow>
+            </l:BlockLayout>
+        </l:VerticalLayout>
+    </ScrollContainer>
+</mvc:View>

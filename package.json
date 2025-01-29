@@ -6,19 +6,26 @@
   "license": "UNLICENSED",
   "private": true,
   "dependencies": {
-    "@cap-js/hana": "^1",
+    "@cap-js/hana": "^1.6.0",
     "@sap-cloud-sdk/http-client": "^3.25.0",
     "@sap-cloud-sdk/resilience": "^3.25.0",
-    "@sap/cds": "^8",
-    "express": "^4"
+    "@sap/cds": "^8.6.2",
+    "@sap/xssec": "^4.2.8",
+    "express": "^4.21.2"
   },
   "devDependencies": {
-    "@cap-js/cds-types": "^0.6",
-    "@cap-js/sqlite": "^1"
+    "@cap-js/cds-types": "^0.6.5",
+    "@cap-js/sqlite": "^1.8.0",
+    "@sap/cds-dk": "^8.6.1",
+    "mbt": "^1.2.34",
+    "rimraf": "^5.0.10"
   },
   "scripts": {
     "start": "cds-serve",
-    "watch-qrmapping_dashboard": "cds watch --open qrmapping_dashboard/webapp/index.html?sap-ui-xx-viewCache=false"
+    "watch-qrmapping_dashboard": "cds watch --open qrmapping_dashboard/webapp/index.html?sap-ui-xx-viewCache=false",
+    "undeploy": "cf undeploy qrmappingdashboard --delete-services --delete-service-keys --delete-service-brokers",
+    "build": "rimraf resources mta_archives && mbt build --mtar archive",
+    "deploy": "cf deploy mta_archives/archive.mtar --retries 1"
   },
   "cds": {
     "server": {
@@ -85,7 +92,12 @@
         "credentials": {
           "destination": "QRGeneratorApp"
         }
-      }
+      },
+      "[production]": {
+        "db": "hana",
+        "auth": "xsuaa"
+      },
+      "connectivity": true
     },
     "sql": {
       "native_hana_associations": false

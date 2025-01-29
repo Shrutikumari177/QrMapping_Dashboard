@@ -24,6 +24,19 @@
           "odataVersion": "4.0"
         }
       }
+    },
+    "crossNavigation": {
+      "inbounds": {
+        "QrMappingDashboard-manage": {
+          "semanticObject": "QrMappingDashboard",
+          "action": "manage",
+          "title": "{{flpTitle}}",
+          "signature": {
+            "parameters": {},
+            "additionalParameters": "allowed"
+          }
+        }
+      }
     }
   },
   "sap.ui": {
@@ -132,5 +145,9 @@
       "type": "XML",
       "id": "App"
     }
+  },
+  "sap.cloud": {
+    "public": true,
+    "service": "QrMapping_DashboardSRV"
   }
 }

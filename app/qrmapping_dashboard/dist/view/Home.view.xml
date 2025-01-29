@@ -1,0 +1,60 @@
+<mvc:View controllerName="com.ingenx.qrmappingdashboard.controller.Home"
+    xmlns:html="http://www.w3.org/1999/xhtml"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns:f="sap.f"
+    xmlns="sap.m"
+    xmlns:tnt="sap.tnt">
+   
+    <OverflowToolbar
+        id="home_overflowToolbar"
+        height="50px"
+
+    >
+        <Title
+            id="pageHeader"
+            text="Track and Trace"
+            textAlign="Center"
+        />
+    </OverflowToolbar>
+    <Page
+        id="home_page"
+        showHeader="false"
+        title="{i18n>title}"
+    >
+        <content>
+
+            <GenericTile
+                id="home_salesOrderTile"
+                class="sapUiSmallMarginBegin sapUiSmallMarginTop tileLayout"
+                header="Create Sales Order "
+                press="onPressCreateSalesOrder"
+            >
+                <TileContent id="home_salesOrderTileContent">
+                    <ImageContent
+                        id="home_salesOrderTileIcon"
+                        src="sap-icon://sales-order"
+                    />
+                </TileContent>
+            </GenericTile>
+            
+            
+           
+            <GenericTile
+                id="home_trackingDashTile"
+                class="sapUiSmallMarginBegin sapUiSmallMarginTop tileLayout"
+                header="Inventory Dashboard For Warehouse"
+                press="onPressProductionTrackDashboard"
+            >
+                <TileContent id="home_trackingDashTileContent">
+                    <ImageContent
+                        id="home_trackingDashTileIcon"
+                        src="sap-icon://factory"
+                    />
+                </TileContent>
+            </GenericTile>
+          
+            
+        </content>
+    </Page>
+ 
+</mvc:View>
