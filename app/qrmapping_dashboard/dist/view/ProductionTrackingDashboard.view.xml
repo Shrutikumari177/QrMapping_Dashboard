@@ -44,14 +44,23 @@
                         alignItems="Center">
                         <items>
                             <VBox id="trackingDash_firstLayoutInnerVbox" justifyContent="Center" alignItems="Center">
-                                <Image
+                                <!-- <Image
                                     id="trackingDash_containerIcon"
                                     src="images/image.png"
                                     alt="{orderModel>OCID}"
                                     width="120px"
                                     class="shape_image"
                                     height="60px"
-                                    press=".onImageClick" />
+                                    press=".onImageClick" /> -->
+                                    <Image
+    id="trackingDash_containerIcon"
+    src="{imageModel>/path}image.png"
+    alt="{orderModel>OCID}"
+    width="120px"
+    class="shape_image"
+    height="60px"
+    press=".onImageClick" />
+
                                 <Text 
                                     id="trackingDash_containerIconOcCode"
                                     text="{orderModel>OCID}" 
