@@ -106,3 +106,21 @@
 .page_title{
     font-weight: bold;
 }
+.test{
+    min-width: min-content;
+    width: 70%;
+}
+.button_box{
+display: flex;
+justify-content: space-between;
+}
+
+.sub_btn{
+    display: flex;
+    align-items: flex-start;
+    
+}
+
+.submit_btn{
+    margin-top: 50%;
+}

@@ -183,7 +183,8 @@
                                 <l:BlockLayout id="salesOrder_bLaylout">
                                 <l:BlockLayoutRow id="salesOrder_rLaylout">
                                 <l:BlockLayoutCell id="salesOrder_cLaylout" width="100%">
-                               <HBox class="" id="saesOrder_hbox">
+                                <HBox class="button_box">
+                               <HBox class="test" id="saesOrder_hbox">
                                 <HBox id="salesOrder_innerHBox" class="scanner_btn sapUiTinyMarginBegin">
                                 <Label
                                     id="salesOrder_ocQrScanLabel"
@@ -236,7 +237,25 @@
                                     disableBarcodeInputDialog="true"
                                 />
                                 </HBox>
+                         
+                        </HBox>
+                                 <HBox
+                                        id="submitHBox_createProwduct"
+                                        justifyContent="End"
+                                        class="sub_btn"
+                                    >
+                                       
+                                 <Button
+                                            id="submitButton_creatweProduct"
+                                            text="Submit"
+                                            type="Emphasized"
+                                            press="onClickSumbitButton"
+                                            visible="true"
+                                            class="submit_btn"
+                                        />
                             </HBox>
+                            </HBox>
+                            
                         <Dialog
                             id="salesOrderCreate_DetailQrDialog"
                             title="QR Code"
@@ -386,18 +405,7 @@
                         </ColumnListItem>
                     </Table>
 
-                                    <HBox
-                                        id="submitHBox_createProwduct"
-                                        justifyContent="End"
-                                    >
-                                        <Button
-                                            id="submitButton_creatweProduct"
-                                            text="Submit"
-                                            type="Emphasized"
-                                            press="onClickSumbitButton"
-                                            visible="true"
-                                        />
-                                    </HBox>
+                                  
                                 </l:BlockLayoutCell>
                                 </l:BlockLayoutRow> 
                                 </l:BlockLayout>
