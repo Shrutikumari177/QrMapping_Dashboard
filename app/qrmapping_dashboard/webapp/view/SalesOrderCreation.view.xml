@@ -183,7 +183,7 @@
                                 <l:BlockLayout id="salesOrder_bLaylout">
                                 <l:BlockLayoutRow id="salesOrder_rLaylout">
                                 <l:BlockLayoutCell id="salesOrder_cLaylout" width="100%">
-                                <HBox class="button_box">
+                                <HBox id="salesOrder_buttonHbox" class="button_box">
                                <HBox class="test" id="saesOrder_hbox">
                                 <HBox id="salesOrder_innerHBox" class="scanner_btn sapUiTinyMarginBegin">
                                 <Label
