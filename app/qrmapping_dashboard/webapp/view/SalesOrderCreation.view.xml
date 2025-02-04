@@ -291,7 +291,7 @@
                             <OverflowToolbar id="salesOrderCreate__OverflowToolbar">
                                 <Title
                                     id="salesOrderCreate__tTitle"
-                                    text="OC's Information"
+                                    text="Outer Container Information"
                                     textAlign="Center"
                                     level="H2"
                                 />
@@ -337,7 +337,7 @@
                             >
                                 <Label
                                     id="salesOrderCreate__productCode"
-                                    text="Product Code"
+                                    text="Material Code"
                                 />
                             </Column>
                           
@@ -389,7 +389,7 @@
                                 <Text
                                     id="salesOrderCreate__expDateText"
                                     class="inputItem"
-                                    text="{salesOrderModelData>pOrder}"
+                                    text="{salesOrderModelData>lMaterial}"
                                 />
                                 <Text
                                     id="salesOrderCreate__mfgDateText"

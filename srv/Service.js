@@ -157,7 +157,7 @@ module.exports = async (srv) => {
     });
     srv.on('UPDATE', 'OuterContainer', async (req) => {
         try {
-            const { OCID, SalesOrder, DealerId, DealerName } = req.data;
+            const { OCID, SalesOrder, DealerId, DealerName,status	 } = req.data;
     
             if (!OCID) {
                 return req.reject(400, 'OCID is required.');
@@ -187,7 +187,8 @@ module.exports = async (srv) => {
                     .set({
                         SalesOrder: SalesOrder,
                         DealerId: DealerId,
-                        DealerName: DealerName
+                        DealerName: DealerName,
+                        status:status
                     })
                     .where({ OCID, OCQRCodeURL: sOCQRCodeURL, OCQRCode: sOCQRCode })
             );

@@ -12,8 +12,8 @@
     >
         <Title
             id="pageHeader"
-            text="Track and Trace"
-            textAlign="Center"
+            text="Sales Order Mapping &amp; Inventory Dashboard"
+            
         />
     </OverflowToolbar>
     <Page

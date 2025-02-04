@@ -124,3 +124,10 @@ justify-content: space-between;
 .submit_btn{
     margin-top: 50%;
 }
+.sapTntToolHeader .sapMTitle {
+    text-shadow: none;
+    font-family: "72-Semibold","72-Semiboldfull","72","72full",Arial,Helvetica,sans-serif;
+    font-size: 1rem;
+    line-height: 1.625rem;
+    color: black !important;
+  }
