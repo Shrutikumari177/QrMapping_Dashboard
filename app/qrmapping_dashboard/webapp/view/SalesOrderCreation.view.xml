@@ -74,11 +74,12 @@
                                             <HBox id="soldTPBox_createProduct1">
                                                 <Input
                                                     id="salesOrder_salesOrderType"
-                                                    width="220px"
+                                                    width="170px"
                                                     showValueHelp="true"
                                                     valueHelpRequest="onSalesOrderTypeValueHelp"
                                                 />
                                             </HBox>
+                                           
                                              <Label
                                                 id="orderTypeLabel_createProduct1"
                                                 text="Dealer"
@@ -89,11 +90,14 @@
                                             >
                                                 <Input
                                                     id="salesOrder_dealer"
-                                                    width="220px"
+                                                    width="170px"
                                                     editable="true"
                                                     showValueHelp="true"
                                                     valueHelpRequest="onCustomerValueHelp"
                                                 />
+                                            </HBox>
+                                             <HBox>
+                                            <Input id="dealerDessc" visible="false" width="170px" editable="false"/>
                                             </HBox>
                                              <Label
                                                 id="label_startDate_createProduct1"
@@ -103,7 +107,7 @@
                                             <Input
                                                 id="salesOrder_distChannel"
                                                 change="onSelectDate"
-                                                width="220px"
+                                                width="170px"
                                                 showValueHelp="true"
                                                 valueHelpRequest="onDistributionTypeValueHelp"
                                             />
@@ -115,10 +119,13 @@
                                             <Input
                                                 id="salesOrder_plant"
                                                 change="onSelectDate"
-                                                width="220px"
+                                                width="170px"
                                                 showValueHelp="true"
                                                 valueHelpRequest="onPlantTypeValueHelp"
                                             />
+                                            <HBox>
+                                            <Input id="plantDesc" visible="false" width="170px" editable="false"/>
+                                            </HBox>
 
                                             <core:Title
                                                 id="title_createProduct21"
@@ -132,7 +139,7 @@
                                             <HBox id="soldTPBox_soDesc">
                                                 <Input
                                                     id="salesOrder_salesOrderDesc"
-                                                    width="220px"
+                                                    width="170px"
                                                     editable="true"
                                                 />
                                             </HBox>
@@ -147,7 +154,7 @@
                                             >
                                                 <Input
                                                     id="salesOrder_salesOrg"
-                                                    width="220px"
+                                                    width="170px"
                                                     class="salesOrgDesc"
                                                     showValueHelp="true"
                                                     valueHelpRequest="onSalesOrgValueHelp"
@@ -163,7 +170,7 @@
                                             
                                                 <Input
                                                     id="salesOrder_division"
-                                                    width="220px"
+                                                    width="170px"
                                                     class="salesOrgDesc"
                                                     showValueHelp="true"
                                                    valueHelpRequest="onDivisionValueHelp"

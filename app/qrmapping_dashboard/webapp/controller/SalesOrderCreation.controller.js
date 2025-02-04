@@ -40,10 +40,12 @@ sap.ui.define([
         //dealer value help selection method
         onCustomerVendorValueConfirmItem: function (oEvent) {
             var oSelectedItem = oEvent.getParameter("selectedItem");
+            let dealerDesc = this.byId("dealerDessc")
             if (oSelectedItem) {
                 var sSelectedDealerNo = oSelectedItem.getTitle();
                 selectedDealerName = oSelectedItem.getDescription();
                 this.getView().byId("salesOrder_dealer").setValue(sSelectedDealerNo);
+                dealerDesc ? dealerDesc.setVisible(true) && dealerDesc.setValue(selectedDealerName) : console.warn("Dealer name field not Found")
             }
             oEvent.getSource().getBinding("items").filter([]);
         },
@@ -60,7 +62,15 @@ sap.ui.define([
 
         // plant value help selection method
         onplantValueConfirmItem: function (oEvent) {
-            HelperFunction._valueHelpSelectedValue(oEvent,this,"salesOrder_plant")
+            var oSelectedItem = oEvent.getParameter("selectedItem");
+            let dealerDesc = this.byId("plantDesc")
+            if (oSelectedItem) {
+                var sSelectedDealerNo = oSelectedItem.getTitle();
+                selectedDealerName = oSelectedItem.getDescription();
+                this.getView().byId("salesOrder_plant").setValue(sSelectedDealerNo);
+                dealerDesc ? dealerDesc.setVisible(true) && dealerDesc.setValue(selectedDealerName) : console.warn("Plant Desc field not Found")
+            }
+            oEvent.getSource().getBinding("items").filter([]);
         },
 
        // open sales order type value help   
@@ -153,6 +163,8 @@ sap.ui.define([
         //  used to send the payload on entity and calling from onClickSumbitButton method
         _sendToBackend:async function (oPayload,inputFields) {
             try {
+                let dealerDesc = this.byId("dealerDessc")
+                let plantDesc = this.byId("plantDesc")
                 var oModel = this.getOwnerComponent().getModel();
                 let oBindList = oModel.bindList("/A_SalesOrder");
 
@@ -169,6 +181,8 @@ sap.ui.define([
                             onClose:async () => {
                                 await this._onUpdateOcData(SalesOrder,oPayload.SoldToParty);
                                 HelperFunction._clearInputValues(this,inputFields);
+                                dealerDesc ? dealerDesc.setVisible(false): ""
+                                plantDesc ? plantDesc.setVisible(false): ""
                                 setTimeout(() => {
                                     this._busyDialog.close()
                                 }, 0);

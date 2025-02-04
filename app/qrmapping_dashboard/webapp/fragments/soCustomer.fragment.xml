@@ -8,7 +8,6 @@
         search="onCustomerValueHelpSearch"
         liveChange="onCustomerValueHelpSearch"
         confirm="onCustomerVendorValueConfirmItem"
-        cancel="onCustomerValueHelpClosevoy"
         items="{/zcustomer_sotrack}"
         initialFocus="SearchField">
         <StandardListItem id="_IDGenStandardListItem2" 
