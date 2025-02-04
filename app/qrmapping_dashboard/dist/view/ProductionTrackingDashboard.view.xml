@@ -233,7 +233,7 @@
                      </Column>
                      <Column hAlign="Center" id="trackingDash_productCodeColumn" >
                        <header>
-                         <Text text="Product Code" id="trackingDash_productText" />
+                         <Text text="Material Code" id="trackingDash_productText" />
                        </header>
                      </Column>
                      <Column minScreenWidth="Tablet" demandPopin="true" id="trackingDash_mfgDateCodeColumn" hAlign="Center">
@@ -300,7 +300,7 @@
                      </Column>
                      <Column minScreenWidth="Tablet" id="trackingDash_BoxProductCodeColumn" demandPopin="true" hAlign="Center">
                        <header>
-                         <Text text="Product Code" id="trackingDash_boxProductCodeText" />
+                         <Text text="Material Code" id="trackingDash_boxProductCodeText" />
                        </header>
                      </Column>
                      <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" id="trackingDash_boxMfgDateColumn" >

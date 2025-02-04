@@ -74,11 +74,12 @@
                                             <HBox id="soldTPBox_createProduct1">
                                                 <Input
                                                     id="salesOrder_salesOrderType"
-                                                    width="220px"
+                                                    width="170px"
                                                     showValueHelp="true"
                                                     valueHelpRequest="onSalesOrderTypeValueHelp"
                                                 />
                                             </HBox>
+                                           
                                              <Label
                                                 id="orderTypeLabel_createProduct1"
                                                 text="Dealer"
@@ -89,11 +90,14 @@
                                             >
                                                 <Input
                                                     id="salesOrder_dealer"
-                                                    width="220px"
+                                                    width="170px"
                                                     editable="true"
                                                     showValueHelp="true"
                                                     valueHelpRequest="onCustomerValueHelp"
                                                 />
+                                            </HBox>
+                                             <HBox>
+                                            <Input id="dealerDessc" visible="false" width="170px" editable="false"/>
                                             </HBox>
                                              <Label
                                                 id="label_startDate_createProduct1"
@@ -103,7 +107,7 @@
                                             <Input
                                                 id="salesOrder_distChannel"
                                                 change="onSelectDate"
-                                                width="220px"
+                                                width="170px"
                                                 showValueHelp="true"
                                                 valueHelpRequest="onDistributionTypeValueHelp"
                                             />
@@ -115,10 +119,13 @@
                                             <Input
                                                 id="salesOrder_plant"
                                                 change="onSelectDate"
-                                                width="220px"
+                                                width="170px"
                                                 showValueHelp="true"
                                                 valueHelpRequest="onPlantTypeValueHelp"
                                             />
+                                            <HBox>
+                                            <Input id="plantDesc" visible="false" width="170px" editable="false"/>
+                                            </HBox>
 
                                             <core:Title
                                                 id="title_createProduct21"
@@ -132,7 +139,7 @@
                                             <HBox id="soldTPBox_soDesc">
                                                 <Input
                                                     id="salesOrder_salesOrderDesc"
-                                                    width="220px"
+                                                    width="170px"
                                                     editable="true"
                                                 />
                                             </HBox>
@@ -147,7 +154,7 @@
                                             >
                                                 <Input
                                                     id="salesOrder_salesOrg"
-                                                    width="220px"
+                                                    width="170px"
                                                     class="salesOrgDesc"
                                                     showValueHelp="true"
                                                     valueHelpRequest="onSalesOrgValueHelp"
@@ -163,7 +170,7 @@
                                             
                                                 <Input
                                                     id="salesOrder_division"
-                                                    width="220px"
+                                                    width="170px"
                                                     class="salesOrgDesc"
                                                     showValueHelp="true"
                                                    valueHelpRequest="onDivisionValueHelp"
@@ -183,7 +190,8 @@
                                 <l:BlockLayout id="salesOrder_bLaylout">
                                 <l:BlockLayoutRow id="salesOrder_rLaylout">
                                 <l:BlockLayoutCell id="salesOrder_cLaylout" width="100%">
-                               <HBox class="" id="saesOrder_hbox">
+                                <HBox id="salesOrder_buttonHbox" class="button_box">
+                               <HBox class="test" id="saesOrder_hbox">
                                 <HBox id="salesOrder_innerHBox" class="scanner_btn sapUiTinyMarginBegin">
                                 <Label
                                     id="salesOrder_ocQrScanLabel"
@@ -236,7 +244,25 @@
                                     disableBarcodeInputDialog="true"
                                 />
                                 </HBox>
+                         
+                        </HBox>
+                                 <HBox
+                                        id="submitHBox_createProwduct"
+                                        justifyContent="End"
+                                        class="sub_btn"
+                                    >
+                                       
+                                 <Button
+                                            id="submitButton_creatweProduct"
+                                            text="Submit"
+                                            type="Emphasized"
+                                            press="onClickSumbitButton"
+                                            visible="true"
+                                            class="submit_btn"
+                                        />
                             </HBox>
+                            </HBox>
+                            
                         <Dialog
                             id="salesOrderCreate_DetailQrDialog"
                             title="QR Code"
@@ -272,7 +298,7 @@
                             <OverflowToolbar id="salesOrderCreate__OverflowToolbar">
                                 <Title
                                     id="salesOrderCreate__tTitle"
-                                    text="OC's Information"
+                                    text="Outer Container Information"
                                     textAlign="Center"
                                     level="H2"
                                 />
@@ -318,7 +344,7 @@
                             >
                                 <Label
                                     id="salesOrderCreate__productCode"
-                                    text="Product Code"
+                                    text="Material Code"
                                 />
                             </Column>
                           
@@ -370,7 +396,7 @@
                                 <Text
                                     id="salesOrderCreate__expDateText"
                                     class="inputItem"
-                                    text="{salesOrderModelData>pOrder}"
+                                    text="{salesOrderModelData>lMaterial}"
                                 />
                                 <Text
                                     id="salesOrderCreate__mfgDateText"
@@ -386,18 +412,7 @@
                         </ColumnListItem>
                     </Table>
 
-                                    <HBox
-                                        id="submitHBox_createProwduct"
-                                        justifyContent="End"
-                                    >
-                                        <Button
-                                            id="submitButton_creatweProduct"
-                                            text="Submit"
-                                            type="Emphasized"
-                                            press="onClickSumbitButton"
-                                            visible="true"
-                                        />
-                                    </HBox>
+                                  
                                 </l:BlockLayoutCell>
                                 </l:BlockLayoutRow> 
                                 </l:BlockLayout>
