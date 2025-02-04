@@ -116,6 +116,7 @@ sap.ui.define([
 
         // Submit sales order data 
         onClickSumbitButton:async function () {
+        
             try { 
                 let inputFields = ["salesOrder_salesOrg", "salesOrder_salesOrderType", "salesOrder_salesOrderDesc",
                     "salesOrder_distChannel", "salesOrder_division","salesOrder_dealer", "salesOrder_plant"
@@ -125,6 +126,7 @@ sap.ui.define([
                 let [salesOrg,sOrderType,orderDesc,sDistChannel,sDivision,sDealer,sPlant] = fieldValues
                 let oPayload = {
                         "SalesOrderType": sOrderType || "",
+                        "PurchaseOrderByCustomer":orderDesc ||"",
                         "SalesOrganization": salesOrg || "",
                         "DistributionChannel": sDistChannel || "",
                         "OrganizationDivision": sDivision || "",
