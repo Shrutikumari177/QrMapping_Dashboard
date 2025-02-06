@@ -66,9 +66,9 @@ sap.ui.define([
             let dealerDesc = this.byId("plantDesc")
             if (oSelectedItem) {
                 let sSelectedDealerNo = oSelectedItem.getTitle();
-                selectedDealerName = oSelectedItem.getDescription();
+                let selectedPlantName = oSelectedItem.getDescription();
                 this.getView().byId("salesOrder_plant").setValue(sSelectedDealerNo);
-                dealerDesc ? dealerDesc.setVisible(true) && dealerDesc.setValue(selectedDealerName) : console.warn("Plant Desc field not Found")
+                dealerDesc ? dealerDesc.setVisible(true) && dealerDesc.setValue(selectedPlantName) : console.warn("Plant Desc field not Found")
             }
             oEvent.getSource().getBinding("items").filter([]);
         },
@@ -175,6 +175,7 @@ sap.ui.define([
                         "StorageLocation": "",
                         }]
                     }
+                    
                 this._sendToBackend(oPayload,inputFields);
             }
             catch (error) {

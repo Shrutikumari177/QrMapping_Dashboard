@@ -39,10 +39,10 @@ sap.ui.define([
 
         //dealer value help selection method
         onCustomerVendorValueConfirmItem: function (oEvent) {
-            var oSelectedItem = oEvent.getParameter("selectedItem");
+            let oSelectedItem = oEvent.getParameter("selectedItem");
             let dealerDesc = this.byId("dealerDessc")
             if (oSelectedItem) {
-                var sSelectedDealerNo = oSelectedItem.getTitle();
+                let sSelectedDealerNo = oSelectedItem.getTitle();
                 selectedDealerName = oSelectedItem.getDescription();
                 this.getView().byId("salesOrder_dealer").setValue(sSelectedDealerNo);
                 dealerDesc ? dealerDesc.setVisible(true) && dealerDesc.setValue(selectedDealerName) : console.warn("Dealer name field not Found")
@@ -62,13 +62,13 @@ sap.ui.define([
 
         // plant value help selection method
         onplantValueConfirmItem: function (oEvent) {
-            var oSelectedItem = oEvent.getParameter("selectedItem");
+            let oSelectedItem = oEvent.getParameter("selectedItem");
             let dealerDesc = this.byId("plantDesc")
             if (oSelectedItem) {
-                var sSelectedDealerNo = oSelectedItem.getTitle();
-                selectedDealerName = oSelectedItem.getDescription();
+                let sSelectedDealerNo = oSelectedItem.getTitle();
+                let selectedPlantName = oSelectedItem.getDescription();
                 this.getView().byId("salesOrder_plant").setValue(sSelectedDealerNo);
-                dealerDesc ? dealerDesc.setVisible(true) && dealerDesc.setValue(selectedDealerName) : console.warn("Plant Desc field not Found")
+                dealerDesc ? dealerDesc.setVisible(true) && dealerDesc.setValue(selectedPlantName) : console.warn("Plant Desc field not Found")
             }
             oEvent.getSource().getBinding("items").filter([]);
         },
@@ -95,7 +95,16 @@ sap.ui.define([
         
         //select item of dist value help
         ondistchannelValueConfirmItem: function(oEvent){
-            HelperFunction._valueHelpSelectedValue(oEvent,this,"salesOrder_distChannel")
+            // HelperFunction._valueHelpSelectedValue(oEvent,this,"salesOrder_distChannel")
+            let oSelectedItem = oEvent.getParameter("selectedItem");
+            let distDesc = this.byId("salesOrder_distChannelDesc")
+            if (oSelectedItem) {
+                let selectDist = oSelectedItem.getTitle();
+                let selectDistDesc = oSelectedItem.getDescription();
+                this.getView().byId("salesOrder_distChannel").setValue(selectDist);
+                distDesc ? distDesc.setVisible(true) && distDesc.setValue(selectDistDesc) : console.warn("Plant Desc field not Found")
+            }
+            oEvent.getSource().getBinding("items").filter([]);
         },
         // open division value help 
         onDivisionValueHelp : function(){
@@ -103,12 +112,28 @@ sap.ui.define([
         },
         // select item of division value help 
         ondivisionValueConfirmItem: function(oEvent){
-            HelperFunction._valueHelpSelectedValue(oEvent,this,"salesOrder_division")
+            // HelperFunction._valueHelpSelectedValue(oEvent,this,"salesOrder_division")
+            let oSelect = oEvent.getParameter("selectedItem")
+            let divInput = this.byId("salesOrder_divisionDesc")
+            if(oSelect){
+                let divValue = oSelect.getTitle()
+                let divDesc = oSelect.getDescription()
+                this.getView().byId("salesOrder_division").setValue(divValue);
+                divDesc?divInput.setVisible(true) && divInput.setValue(divDesc):console.log("dist desc not found")
+            }
         },
 
         // select item of sales org value 
         onsalesOrgValueConfirmItem: function(oEvent){
-            HelperFunction._valueHelpSelectedValue(oEvent,this,"salesOrder_salesOrg")
+            // HelperFunction._valueHelpSelectedValue(oEvent,this,"salesOrder_salesOrg")
+            let oSelect = oEvent.getParameter("selectedItem")
+            let salesOrdDescInput = this.byId("salesOrder_salesOrgDesc")
+            if(oSelect){
+                let salesOrgValue = oSelect.getTitle()
+                let salesOrgValueDesc = oSelect.getDescription()
+                this.byId("salesOrder_salesOrg").setValue(salesOrgValue)
+                salesOrgValueDesc ? salesOrdDescInput.setVisible(true) && salesOrdDescInput.setValue(salesOrgValueDesc) : console.log("desc not found")
+            }
         },
       
 
@@ -159,13 +184,23 @@ sap.ui.define([
             }
         },
 
+        inputFieldHide : function(inputIDs){
+             if(Array.isArray(inputIDs)){
+               inputIDs.forEach(id=>{
+                let input = this.byId(id)
+                input ? input.setVisible(false) : console.log(`ID - ${id} not Found`)
+               })
+             }
+             return []
+        },
+               
+
 
         //  used to send the payload on entity and calling from onClickSumbitButton method
         _sendToBackend:async function (oPayload,inputFields) {
             try {
-                let dealerDesc = this.byId("dealerDessc")
-                let plantDesc = this.byId("plantDesc")
-                var oModel = this.getOwnerComponent().getModel();
+                let descInput = ["dealerDessc","salesOrder_distChannelDesc","plantDesc","salesOrder_salesOrgDesc","salesOrder_divisionDesc"]
+                let oModel = this.getOwnerComponent().getModel();
                 let oBindList = oModel.bindList("/A_SalesOrder");
 
                 oBindList.create(oPayload, true);
@@ -181,11 +216,10 @@ sap.ui.define([
                             onClose:async () => {
                                 await this._onUpdateOcData(SalesOrder,oPayload.SoldToParty);
                                 HelperFunction._clearInputValues(this,inputFields);
-                                dealerDesc ? dealerDesc.setVisible(false): ""
-                                plantDesc ? plantDesc.setVisible(false): ""
+                                this.inputFieldHide(descInput)
                                 setTimeout(() => {
                                     this._busyDialog.close()
-                                }, 0);
+                                }, 1000);
                             }
                         });
                     }
@@ -327,13 +361,13 @@ sap.ui.define([
                     sap.m.MessageToast.show("Scan cancelled", { duration: 1000 });
                     return;
                 }
-                var scanResult = oEvent.getParameter("text");
+                let scanResult = oEvent.getParameter("text");
                 if (!scanResult) {
                     sap.m.MessageToast.show("No data found in scan", { duration: 1000 });
                     return;
                 }
-                var scannedData = JSON.parse(scanResult);
-                var scannedICID = scannedData.ICID;
+                let scannedData = JSON.parse(scanResult);
+                let scannedICID = scannedData.ICID;
                 if (!scannedICID) {
                     sap.m.MessageToast.show("Invalid scan data. ICID not found.", { duration: 1000 });
                     return;
@@ -403,9 +437,9 @@ sap.ui.define([
             if (oEvent.getParameter("cancelled")) {
                 sap.m.MessageToast.show("Scan cancelled", { duration: 1000 });
             } else {
-                var scanResult = oEvent.getParameter("text");
+                let scanResult = oEvent.getParameter("text");
                 if (scanResult) {
-                    var scannedData = JSON.parse(scanResult);
+                    let scannedData = JSON.parse(scanResult);
                     let { OCID } = scannedData
                     ocidValue = OCID
                     this._displayTable.setBusy(true)

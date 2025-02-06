@@ -3,7 +3,7 @@
     xmlns:core="sap.ui.core">
     <SelectDialog
         id="ocCodeValueHelp"
-        noDataText="Loading..."
+        noDataText="No Data Found"
         title="Select OC ID"
         search="onOCValueHelpSearch"
         liveChange="onOCValueHelpSearch"
