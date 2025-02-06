@@ -11,8 +11,8 @@
         items="{salesOrgDataModel>/}"
         initialFocus="SearchField">
         <StandardListItem id="salesOrgList" 
-            title="{salesOrgDataModel>}"
-            description=""
+            title="{salesOrgDataModel>SalesOrg}"
+            description="{salesOrgDataModel>salesorgText}"
             iconDensityAware="false"
             iconInset="false"
             type="Active" />

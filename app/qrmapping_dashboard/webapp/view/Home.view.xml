@@ -19,7 +19,7 @@
     <Page
         id="home_page"
         showHeader="false"
-        title="{i18n>title}"
+       
     >
         <content>
 

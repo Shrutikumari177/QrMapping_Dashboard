@@ -10,7 +10,7 @@
 
     <ScrollContainer id="dashboard2_ScrollContainer" vertical="true" height="100%">
         <tnt:ToolHeader id="d2shellOnlyMandatoryControls" class="sapUiTinyMargin header_nav">
-            <Title id="dashboard2_Title" class="page_title" text="Production Tracking Dashboard" wrapping="false">
+            <Title id="dashboard2_Title" class="page_title" text="Inventory Dashboard for Warehouse" wrapping="false">
                 <layoutData>
                     <OverflowToolbarLayoutData id="dashboard2_OverflowToolbarLayoutData" priority="Disappear" />
                 </layoutData>
@@ -44,14 +44,7 @@
                         alignItems="Center">
                         <items>
                             <VBox id="trackingDash_firstLayoutInnerVbox" justifyContent="Center" alignItems="Center">
-                                <!-- <Image
-                                    id="trackingDash_containerIcon"
-                                    src="images/image.png"
-                                    alt="{orderModel>OCID}"
-                                    width="120px"
-                                    class="shape_image"
-                                    height="60px"
-                                    press=".onImageClick" /> -->
+                                
                                     <Image
     id="trackingDash_containerIcon"
     src="{imageModel>/path}image.png"
@@ -221,14 +214,10 @@
                    items="{fragmentModel>/ICs}"
                   selectionChange="onSelectionChange">
                    <columns>
-                     <Column id="trackingDash_icCodeColumn" hAlign="Center">
+                     
+                     <Column hAlign="Center" id="trackingDash_productIdColumn">
                        <header>
-                         <Text id="trackingDash_icCodeText" text="IC Code" />
-                       </header>
-                     </Column>
-                     <Column minScreenWidth="Tablet" id="trackingDash_batchIdColumn" demandPopin="true" hAlign="Center">
-                       <header>
-                         <Text text="Batch ID" id="trackingDash_batchIdext" />
+                         <Text text="Production Order" id="trackingDash_productIdText" />
                        </header>
                      </Column>
                      <Column hAlign="Center" id="trackingDash_productCodeColumn" >
@@ -236,6 +225,12 @@
                          <Text text="Material Code" id="trackingDash_productText" />
                        </header>
                      </Column>
+                     <Column minScreenWidth="Tablet" id="trackingDash_batchIdColumn" demandPopin="true" hAlign="Center">
+                       <header>
+                         <Text text="Batch ID" id="trackingDash_batchIdext" />
+                       </header>
+                     </Column>
+                     
                      <Column minScreenWidth="Tablet" demandPopin="true" id="trackingDash_mfgDateCodeColumn" hAlign="Center">
                        <header>
                          <Text text="Manufacturing Date" id="trackingDash_mfgDateText"/>
@@ -246,11 +241,12 @@
                          <Text text="Expiry Date" id="trackingDash_expDateText" />
                        </header>
                      </Column>
-                     <Column hAlign="Center" id="trackingDash_productIdColumn">
+                     <Column id="trackingDash_icCodeColumn" hAlign="Center">
                        <header>
-                         <Text text="Production Order" id="trackingDash_productIdText" />
+                         <Text id="trackingDash_icCodeText" text="IC Code" />
                        </header>
                      </Column>
+                     
                      <Column hAlign="Center" id="trackingDash_icQrColumn">
                        <header>
                          <Text text="IC Qr Code" id="trackingDash_icQrText"/>
@@ -261,12 +257,14 @@
                    </columns>
                    <ColumnListItem id="trackingDash_icColumnList" class="borderedRow" type="Navigation" press="onIcRowSelect">
                      <cells>
-                       <Text id="trackingDash_icidValue" text="{fragmentModel>ICID}"/>
+                      
+                       <Text id="trackingDash_productOrderValue" text="{fragmentModel>ProductionOrder}" />
+                       <Text id="trackingDash_materialValue" text="{fragmentModel>Material}" />
                        <Text id="trackingDash_batchValue" text="{fragmentModel>BatchID}" />
-                        <Text id="trackingDash_materialValue" text="{fragmentModel>Material}" />
+                        
                         <Text id="trackingDash_mfgDateValue" text="{fragmentModel>ManufactureDt}" />
                         <Text id="trackingDash_expDateValue" text="{fragmentModel>ExpiryDt}" />
-                       <Text id="trackingDash_productOrderValue" text="{fragmentModel>ProductionOrder}" />
+                       <Text id="trackingDash_icidValue" text="{fragmentModel>ICID}"/>
                        <Link id="trackingDash_icQrCode" text="{fragmentModel>ICQRCode}" press="onDashboardICQrCode"/> 
                        
                      </cells>
@@ -288,22 +286,22 @@
                    items="{boxModelData>/boxes}"
                   selectionChange="onSelectionChange">
                    <columns>
-                     <Column hAlign="Center" id="trackingDash_serialNoColumn">
+                   <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" id="trackingDash_boxProductIdColumn" >
                        <header>
-                         <Text text="Serial No" id="trackingDash_serialNoText" />
+                         <Text text="Production Order" id="trackingDash_boxProductIdText" />
                        </header>
-                     </Column>
-                      <Column hAlign="Center" id="trackingDash_boxbatchIdColumn">
-                       <header>
-                         <Text text="Batch ID" id="trackingDash_boxBatchIdText"/>
-                       </header>
-                     </Column>
-                     <Column minScreenWidth="Tablet" id="trackingDash_BoxProductCodeColumn" demandPopin="true" hAlign="Center">
+                  </Column>
+                  <Column minScreenWidth="Tablet" id="trackingDash_BoxProductCodeColumn" demandPopin="true" hAlign="Center">
                        <header>
                          <Text text="Material Code" id="trackingDash_boxProductCodeText" />
                        </header>
-                     </Column>
-                     <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" id="trackingDash_boxMfgDateColumn" >
+                  </Column>
+                  <Column hAlign="Center" id="trackingDash_boxbatchIdColumn">
+                       <header>
+                         <Text text="Batch ID" id="trackingDash_boxBatchIdText"/>
+                       </header>
+                  </Column>
+                  <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" id="trackingDash_boxMfgDateColumn" >
                        <header>
                          <Text text="Manufacturing Date" id="trackingDash_boxMfgDateText" />
                        </header>
@@ -313,11 +311,15 @@
                          <Text text="Expiry Date" id="trackingDash_boxExpDate"/>
                        </header>
                      </Column>
-                     <Column minScreenWidth="Tablet" demandPopin="true" hAlign="Center" id="trackingDash_boxProductIdColumn" >
+                     <Column hAlign="Center" id="trackingDash_serialNoColumn">
                        <header>
-                         <Text text="Production Order" id="trackingDash_boxProductIdText" />
+                         <Text text="Serial No" id="trackingDash_serialNoText" />
                        </header>
                      </Column>
+                      
+                     
+                     
+                     
                     
                      <Column hAlign="Center" id="trackingDash_boxQrCodeColumn">
                        <header>
@@ -330,12 +332,13 @@
                    </columns>
                    <ColumnListItem class="borderedRow" id="trackingDash_boxCoumnList">
                      <cells>
-                       <Text id="trackingDash_boxSerialNoValue" text="{boxModelData>SerialNo}"/>
-                       <Text id="trackingDash_boxBatchIdValue" text="{boxModelData>BatchID}" />
-                        <Text id="trackingDash_boxMaterialValue" text="{boxModelData>Material}" />
-                      <Text id="trackingDash_boxMfgValue" text="{boxModelData>ManufactureDt}" />
-                        <Text id="trackingDash_boxExpDateValue" text="{boxModelData>ExpiryDt}" />
                        <Text id="trackingDash_boxProductionOrderValue" text="{boxModelData>ProductionOrder}" />
+                        <Text id="trackingDash_boxMaterialValue" text="{boxModelData>Material}" />
+                         <Text id="trackingDash_boxBatchIdValue" text="{boxModelData>BatchID}" />
+                          <Text id="trackingDash_boxMfgValue" text="{boxModelData>ManufactureDt}" />
+                        <Text id="trackingDash_boxExpDateValue" text="{boxModelData>ExpiryDt}" />
+                       <Text id="trackingDash_boxSerialNoValue" text="{boxModelData>SerialNo}"/>
+                       
                        <Link text="{boxModelData>BoxQRCode}" id="trackingDash_boxQrCodeLink" press="onDashboardBoxQrCode"/>
                      
                      

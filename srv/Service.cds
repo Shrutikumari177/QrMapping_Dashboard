@@ -208,12 +208,7 @@ service qrmappingservice {
             key DistChannel
         };
 
-    entity zneworg                     as
-        projection on ZTRACKTRACE_VALUEHELP_SRV.zneworg {
-            key Spras,
-            key Auart,
-                AuartSpr
-        };
+   
 
     entity zplant_soTrack              as
         projection on ZTRACKTRACE_VALUEHELP_SRV.zplant_soTrack {
@@ -228,15 +223,8 @@ service qrmappingservice {
                 Description
         };
 
-    entity zsalesorderdetails_so       as
-        projection on ZTRACKTRACE_VALUEHELP_SRV.zsalesorderdetails_so {
-            key SalesOrderType,
-            key SalesOrg,
-            key DistChannel,
-            key Division,
-            key Auart,
-                Kopgr
-        };
+      entity zsalesorderdetails_so as projection on ZTRACKTRACE_VALUEHELP_SRV.zsalesorderdetails_so
+    {        key SalesOrderType, key SalesOrg, key DistChannel, key Division, key Auart, Kopgr, salesorgText, DistchaText, DivText     }   
 
     entity A_SalesOrder                as
         projection on IRMSZAPI_SALES_ORDER_SRV.A_SalesOrder {

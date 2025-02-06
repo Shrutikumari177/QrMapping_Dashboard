@@ -1,4 +1,4 @@
-/* checksum : 5682db42e77b0a89f5c090061fdf0499 */
+/* checksum : 05f7c8fc383c0a3c333363a9cd2a052a */
 @cds.external : true
 @m.IsDefaultEntityContainer : 'true'
 @sap.message.scope.supported : 'true'
@@ -68,26 +68,6 @@ entity ZTRACKTRACE_VALUEHELP_SRV.ZMaterial_ValueHelp {
 @sap.updatable : 'false'
 @sap.deletable : 'false'
 @sap.content.version : '1'
-@sap.label : 'new org'
-entity ZTRACKTRACE_VALUEHELP_SRV.zneworg {
-  @sap.label : 'Language Key'
-  key Spras : String(2) not null;
-  @sap.display.format : 'UpperCase'
-  @sap.label : 'Sales document type'
-  @sap.quickinfo : 'Sales document type (not converted)'
-  key Auart : String(4) not null;
-  @sap.display.format : 'UpperCase'
-  @sap.label : 'Language key'
-  @sap.quickinfo : 'Language key for sales document type'
-  AuartSpr : String(4);
-};
-
-@cds.external : true
-@cds.persistence.skip : true
-@sap.creatable : 'false'
-@sap.updatable : 'false'
-@sap.deletable : 'false'
-@sap.content.version : '1'
 @sap.label : 'value help for plant'
 entity ZTRACKTRACE_VALUEHELP_SRV.zplant_soTrack {
   @sap.display.format : 'UpperCase'
@@ -130,7 +110,12 @@ entity ZTRACKTRACE_VALUEHELP_SRV.zsalesorderdetails_so {
   @sap.label : 'Screen sequence grp.'
   @sap.quickinfo : 'Screen sequence group for document header & item'
   Kopgr : String(4);
-  to_ta : Association to many ZTRACKTRACE_VALUEHELP_SRV.zneworg {  };
+  @sap.label : 'Name'
+  salesorgText : String(20);
+  @sap.label : 'Name'
+  DistchaText : String(20);
+  @sap.label : 'Name'
+  DivText : String(20);
 };
 
 @cds.external : true

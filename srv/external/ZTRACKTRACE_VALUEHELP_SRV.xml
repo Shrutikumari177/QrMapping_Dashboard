@@ -51,15 +51,6 @@
                 </Key>
                 <Property Name="Material" Type="Edm.String" Nullable="false" MaxLength="40" sap:display-format="UpperCase" sap:label="Material" sap:quickinfo="Material Number"/>
             </EntityType>
-            <EntityType Name="zneworgType" sap:label="new org" sap:content-version="1">
-                <Key>
-                    <PropertyRef Name="Spras"/>
-                    <PropertyRef Name="Auart"/>
-                </Key>
-                <Property Name="Spras" Type="Edm.String" Nullable="false" MaxLength="2" sap:label="Language Key"/>
-                <Property Name="Auart" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="UpperCase" sap:label="Sales document type" sap:quickinfo="Sales document type (not converted)"/>
-                <Property Name="AuartSpr" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Language key" sap:quickinfo="Language key for sales document type"/>
-            </EntityType>
             <EntityType Name="zplant_soTrackType" sap:label="value help for plant" sap:content-version="1">
                 <Key>
                     <PropertyRef Name="StorageLocation"/>
@@ -83,7 +74,9 @@
                 <Property Name="Division" Type="Edm.String" Nullable="false" MaxLength="2" sap:display-format="UpperCase" sap:label="Division"/>
                 <Property Name="Auart" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="UpperCase" sap:label="Sales Document Type"/>
                 <Property Name="Kopgr" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:label="Screen sequence grp." sap:quickinfo="Screen sequence group for document header &amp; item"/>
-                <NavigationProperty Name="to_ta" Relationship="ZTRACKTRACE_VALUEHELP_SRV.assoc_E4EC1F88F45C1FA7BB8A6E1AB25F1213" FromRole="FromRole_assoc_E4EC1F88F45C1FA7BB8A6E1AB25F1213" ToRole="ToRole_assoc_E4EC1F88F45C1FA7BB8A6E1AB25F1213"/>
+                <Property Name="salesorgText" Type="Edm.String" MaxLength="20" sap:label="Name"/>
+                <Property Name="DistchaText" Type="Edm.String" MaxLength="20" sap:label="Name"/>
+                <Property Name="DivText" Type="Edm.String" MaxLength="20" sap:label="Name"/>
             </EntityType>
             <EntityType Name="zsalesorder_tracksoType" sap:label="sales order valuehelp" sap:content-version="1">
                 <Key>
@@ -98,24 +91,15 @@
                 </Key>
                 <Property Name="SalesOrg" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="UpperCase" sap:label="Sales Organization"/>
             </EntityType>
-            <Association Name="assoc_E4EC1F88F45C1FA7BB8A6E1AB25F1213" sap:content-version="1">
-                <End Type="ZTRACKTRACE_VALUEHELP_SRV.zsalesorderdetails_soType" Multiplicity="1" Role="FromRole_assoc_E4EC1F88F45C1FA7BB8A6E1AB25F1213"/>
-                <End Type="ZTRACKTRACE_VALUEHELP_SRV.zneworgType" Multiplicity="*" Role="ToRole_assoc_E4EC1F88F45C1FA7BB8A6E1AB25F1213"/>
-            </Association>
             <EntityContainer Name="ZTRACKTRACE_VALUEHELP_SRV_Entities" m:IsDefaultEntityContainer="true" sap:message-scope-supported="true" sap:supported-formats="atom json xlsx">
                 <EntitySet Name="zcustomer_sotrack" EntityType="ZTRACKTRACE_VALUEHELP_SRV.zcustomer_sotrackType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
                 <EntitySet Name="zdistchannel_sotrack" EntityType="ZTRACKTRACE_VALUEHELP_SRV.zdistchannel_sotrackType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
                 <EntitySet Name="Zdivision_sotrack" EntityType="ZTRACKTRACE_VALUEHELP_SRV.Zdivision_sotrackType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
                 <EntitySet Name="ZMaterial_ValueHelp" EntityType="ZTRACKTRACE_VALUEHELP_SRV.ZMaterial_ValueHelpType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
-                <EntitySet Name="zneworg" EntityType="ZTRACKTRACE_VALUEHELP_SRV.zneworgType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
                 <EntitySet Name="zplant_soTrack" EntityType="ZTRACKTRACE_VALUEHELP_SRV.zplant_soTrackType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
                 <EntitySet Name="zsalesorderdetails_so" EntityType="ZTRACKTRACE_VALUEHELP_SRV.zsalesorderdetails_soType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
                 <EntitySet Name="zsalesorder_trackso" EntityType="ZTRACKTRACE_VALUEHELP_SRV.zsalesorder_tracksoType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
                 <EntitySet Name="zsalesorg_track" EntityType="ZTRACKTRACE_VALUEHELP_SRV.zsalesorg_trackType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
-                <AssociationSet Name="assoc_E4EC1F88F45C1FA7BB8A6E1AB25F1213" Association="ZTRACKTRACE_VALUEHELP_SRV.assoc_E4EC1F88F45C1FA7BB8A6E1AB25F1213" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
-                    <End EntitySet="zsalesorderdetails_so" Role="FromRole_assoc_E4EC1F88F45C1FA7BB8A6E1AB25F1213"/>
-                    <End EntitySet="zneworg" Role="ToRole_assoc_E4EC1F88F45C1FA7BB8A6E1AB25F1213"/>
-                </AssociationSet>
             </EntityContainer>
             <Annotations Target="ZTRACKTRACE_VALUEHELP_SRV.ZTRACKTRACE_VALUEHELP_SRV_Entities"
                 xmlns="http://docs.oasis-open.org/odata/ns/edm">

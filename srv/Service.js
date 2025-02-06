@@ -325,30 +325,32 @@ module.exports = async (srv) => {
         }
     });
 
-    srv.on('getSalesOrderTypevalues', async (req) => {
+    srv.on('tSalesOrderTypevalues', async (req) => {
         const { SalesOrderType } = req.data;
     
         try {
             const SalesOrderDetails = await ZTRACKTRACE_VALUEHELP_SRV.run(
                 SELECT
                     .from('zsalesorderdetails_so')
-                    .columns(['SalesOrg', 'DistChannel', 'Division'])
+                    .columns(['SalesOrg', 'DistChannel', 'Division','salesorgText','DistchaText','DivText'])
                     .where({ SalesOrderType: SalesOrderType })
             );
     
             if (!SalesOrderDetails || SalesOrderDetails.length === 0) {
                 return req.reject(404, "No sales order details found for the given Sales Order Type.");
             }
+            console.log("running", SalesOrderDetails)
     
             const salesOrgSet = new Set();
             const distChannelSet = new Set();
             const divisionSet = new Set();
     
             SalesOrderDetails.forEach(detail => {
-                salesOrgSet.add(detail.SalesOrg);
-                distChannelSet.add(detail.DistChannel);
-                divisionSet.add(detail.Division);
+                salesOrgMap.set(detail.SalesOrg, { SalesOrg: detail.SalesOrg, salesorgText: detail.salesorgText });
+                distChannelMap.set(detail.DistChannel, { DistChannel: detail.DistChannel, DistchaText: detail.DistchaText });
+                divisionMap.set(detail.Division, { Division: detail.Division, DivText: detail.DivText });
             });
+            console.log("adda",SalesOrderDetails)
     
             const uniqueSalesOrgs = Array.from(salesOrgSet);
             const uniqueDistChannels = Array.from(distChannelSet);
@@ -365,6 +367,49 @@ module.exports = async (srv) => {
             return req.reject(500, `An unexpected error occurred: ${error.message}`);
         }
     });
+
+    srv.on('getSalesOrderTypevalues', async (req) => {
+        const { SalesOrderType } = req.data;
+    
+        try {
+            const SalesOrderDetails = await ZTRACKTRACE_VALUEHELP_SRV.run(
+                SELECT
+                    .from('zsalesorderdetails_so')
+                    .columns(['SalesOrg', 'DistChannel', 'Division', 'salesorgText', 'DistchaText', 'DivText'])
+                    .where({ SalesOrderType: SalesOrderType })
+            );
+    
+            if (!SalesOrderDetails || SalesOrderDetails.length === 0) {
+                return req.reject(404, "No sales order details found for the given Sales Order Type.");
+            }
+            console.log("running", SalesOrderDetails);
+    
+            const salesOrgMap = new Map();
+            const distChannelMap = new Map();
+            const divisionMap = new Map();
+    
+            SalesOrderDetails.forEach(detail => {
+                salesOrgMap.set(detail.SalesOrg, { SalesOrg: detail.SalesOrg, salesorgText: detail.salesorgText });
+                distChannelMap.set(detail.DistChannel, { DistChannel: detail.DistChannel, DistchaText: detail.DistchaText });
+                divisionMap.set(detail.Division, { Division: detail.Division, DivText: detail.DivText });
+            });
+    
+            const uniqueSalesOrgs = Array.from(salesOrgMap.values());
+            const uniqueDistChannels = Array.from(distChannelMap.values());
+            const uniqueDivisions = Array.from(divisionMap.values());
+    
+            return {
+                SalesOrgs: uniqueSalesOrgs,
+                DistChannels: uniqueDistChannels,
+                Divisions: uniqueDivisions
+            };
+    
+        } catch (error) {
+            console.error("Error in getSalesOrderTypevalues:", error);
+            return req.reject(500, `An unexpected error occurred: ${error.message}`);
+        }
+    });
+    
 
     srv.on('getScannedOCData', async (req) => {
         try {

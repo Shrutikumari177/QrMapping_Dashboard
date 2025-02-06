@@ -11,8 +11,8 @@
         items="{DivisionDataModel>/}"
         initialFocus="SearchField">
         <StandardListItem id="_IDGenStandardListItem5" 
-            title="{DivisionDataModel>}"
-            description=""
+            title="{DivisionDataModel>Division}"
+            description="{DivisionDataModel>DivText}"
             iconDensityAware="false"
             iconInset="false"
             type="Active" />

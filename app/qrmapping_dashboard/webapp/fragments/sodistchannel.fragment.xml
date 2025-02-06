@@ -11,8 +11,8 @@
         items="{distDataModel>/}"
         initialFocus="SearchField">
         <StandardListItem id="_IDGenStandardListItem4" 
-            title="{distDataModel>}"
-            description=""
+            title="{distDataModel>DistChannel}"
+            description="{distDataModel>DistchaText}"
             iconDensityAware="false"
             iconInset="false"
             type="Active" />

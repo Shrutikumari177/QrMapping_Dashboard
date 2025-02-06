@@ -111,6 +111,9 @@
                                                 showValueHelp="true"
                                                 valueHelpRequest="onDistributionTypeValueHelp"
                                             />
+                                             <HBox>
+                                            <Input id="salesOrder_distChannelDesc" visible="false" width="170px" editable="false"/>
+                                            </HBox>
                                             <Label
                                                 id="label_endDate_creawteProduct"
                                                 text="Plant"
@@ -160,6 +163,9 @@
                                                     valueHelpRequest="onSalesOrgValueHelp"
                                                 />
                                             </HBox>
+                                             <HBox>
+                                            <Input id="salesOrder_salesOrgDesc" visible="false" width="170px" editable="false"/>
+                                            </HBox>
                                           
                                            
                                               <Label
@@ -175,6 +181,9 @@
                                                     showValueHelp="true"
                                                    valueHelpRequest="onDivisionValueHelp"
                                                 />
+                                                 <HBox>
+                                            <Input id="salesOrder_divisionDesc" visible="false" width="170px" editable="false"/>
+                                            </HBox>
                                         </form:content>
                                     </form:SimpleForm>
                                   
