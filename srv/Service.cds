@@ -50,15 +50,22 @@ service qrmappingservice {
         ManufactureDt : DateTime;
         ExpiryDt : DateTime;
         ProductionOrder : Int64;
+        SalesOrder:String;
         Material : String;
+        RetailerId:String;
+        RetailerTaxNo:String;
         ICs : array of {
             ICID : String;
             ICQRCode : String;
             ICQRCodeURL : String;
+            RetailerId:String;
+            RetailerTaxNo:String;
             Boxes : array of {
                 SerialNo : String;
                 BoxQRCode : String;
                 BoxQRCodeURL : String;
+                 RetailerId:String;
+                RetailerTaxNo:String;
             };
         };
     };

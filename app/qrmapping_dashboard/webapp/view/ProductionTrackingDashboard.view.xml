@@ -27,41 +27,50 @@
                     <Label id="trackingDash_batchLabel" text="Batch ID" class="sapUiTinyMargin" design="Bold"/>
                     <Input id="productionDashboard_batchId" width="15%" showValueHelp="true" valueHelpRequest="_onDashboardBatchValueHelp"/>
                     <Label id="trackingDash_ocLabel" text="OC ID" class="sapUiTinyMargin sapUiLargeMarginBegin" design="Bold"/>
-                    <Input id="productionDashboard_ocID" width="15%" showValueHelp="true" valueHelpRequest="_onDashboardOCValueHelp"/>
-                    <Label id="trackingDash_datepickerLabel" text="Date" class="sapUiTinyMargin sapUiLargeMarginBegin" design="Bold" />
+                    <Input id="productionDashboard_ocID" width="15%" showValueHelp="true" valueHelpRequest="_onDashboardOCValueHelp" />
+                    <Label id="trackingDash_datepickerLabel" text=" Manufacturing Date" class="sapUiTinyMargin sapUiLargeMarginBegin" design="Bold" />
                  <DatePicker width="15%" id="DP1" placeholder="Enter Date" change="handleChange" class="sapUiSmallMarginBottom" displayFormat="YYYY-MM-dd" valueFormat="YYYY-MM-dd"/>
-                    <Button id="trackingDash_goBtn" text="GO" type="Emphasized" class="sapUiSmallMarginBegin" press="_onGoButtonPress"/>
+                    <Button id="trackingDash_goBtn" text="GO" type="Emphasized" class="sapUiSmallMarginBegin" press="_onGoButtonPress" visible="true"/>
                     </l:BlockLayoutCell>
                 </l:BlockLayoutRow>
 
                 <l:BlockLayoutRow id="dashboard_shapeLayout" visible="false">
                     <l:BlockLayoutCell id="dashboard2_GenBlockLayoutCell" width="90%">
                        <VBox id="trackingDash_firstLayoutVbox">
+                    
                     <HBox 
-                        id="trackingDash_firstLayoutHBox"
-                        items="{orderModel>/}" 
-                        justifyContent="Center" 
-                        alignItems="Center">
-                        <items>
-                            <VBox id="trackingDash_firstLayoutInnerVbox" justifyContent="Center" alignItems="Center">
-                                
-                                    <Image
-    id="trackingDash_containerIcon"
-    src="{imageModel>/path}image.png"
-    alt="{orderModel>OCID}"
-    width="120px"
-    class="shape_image"
-    height="60px"
-    press=".onImageClick" />
+                id="trackingDash_firstLayoutHBox"
+                items="{orderModel>/}" 
+                justifyContent="Center" 
+                alignItems="Center">
+              <items>
+                  <VBox 
+                      binding="{orderModel>}"  
+                      justifyContent="Center" 
+                      alignItems="Center">
+                      
+                      <!-- Add margin using layoutData -->
+                      <layoutData>
+                          <FlexItemData styleClass="sapUiSmallMarginEnd"/>
+                      </layoutData>
 
-                                <Text 
-                                    id="trackingDash_containerIconOcCode"
-                                    text="{orderModel>OCID}" 
-                                    class="shape_text"
-                                    textAlign="Center" />
-                            </VBox>
-                        </items>
-                    </HBox>
+                      <Image
+                          id="trackingDash_containerIcon"
+                          src="{imageModel>/path}image.png"
+                          alt="{orderModel>OCID}"
+                          width="120px"
+                          class="shape_image"
+                          height="60px"
+                          press=".onImageClick" />
+                      
+                      <Text 
+                          id="trackingDash_containerIconOcCode"
+                          text="{orderModel>OCID}" 
+                          class="shape_text"
+                          textAlign="Center" />
+                  </VBox>
+              </items>
+          </HBox>
                 </VBox>
                     </l:BlockLayoutCell>
                 </l:BlockLayoutRow>
@@ -102,7 +111,7 @@
                                 />
                             </buttons>
                         </Dialog> 
-                              <IconTabBar
+            <IconTabBar
             id="idIconTabBar"
             select=".onFilterSelect"
             class="sapUiResponsiveContentPadding">
@@ -150,6 +159,36 @@
                </HBox>
                <VBox id="f6" class="ibox" width="50%">
                <Text id="dnameText" class="details_text" text="{fragmentModel>/DealerName}" />
+               </VBox>
+             </FlexBox>
+
+             <FlexBox id="tankDialogDetailsTabFlexBoxSalesOrder" class="fbox">
+             <HBox class="dash_hbox" id="trackingDash_SalesOrderHbox">
+               <Text id="tankDialogDetailSalesOrder" text="Sales Order"  width="100%"/>
+               <Text text=":" id="SalesOrder"/>
+               </HBox>
+               <VBox id="SalesOrderVbox" class="ibox" width="50%">
+               <Text id="SalesOrderText" class="details_text" text="{fragmentModel>/SalesOrder}" />
+               </VBox>
+             </FlexBox>
+
+             <FlexBox id="tankDialogDetailsTabFlexBoxRetailerId" class="fbox">
+             <HBox class="dash_hbox" id="trackingDash_RetailerIdHbox">
+               <Text id="tankDialogDetailRetailerId" text="Retailer"  width="100%"/>
+               <Text text=":" id="RetailerId"/>
+               </HBox>
+               <VBox id="RetailerIdVbox" class="ibox" width="50%">
+               <Text id="RetailerIdText" class="details_text" text="{fragmentModel>/RetailerId}" />
+               </VBox>
+             </FlexBox>
+
+             <FlexBox id="tankDialogDetailsTabFlexBoxRetailerTxno" class="fbox">
+             <HBox class="dash_hbox" id="trackingDash_RetailerTxnoHbox">
+               <Text id="tankDialogDetailRetailerTxno" text="Retailer Tax No"  width="100%"/>
+               <Text text=":" id="RetailerTxno"/>
+               </HBox>
+               <VBox id="RetailerTxnoVbox" class="ibox" width="50%">
+               <Text id="RetailerTxnoText" class="details_text" text="{fragmentModel>/RetailerTaxNo}" />
                </VBox>
              </FlexBox>
 
@@ -246,6 +285,16 @@
                          <Text id="trackingDash_icCodeText" text="IC Code" />
                        </header>
                      </Column>
+                     <Column id="trackingDash_reatailerIdColumn" hAlign="Center">
+                       <header>
+                         <Text id="trackingDash_reatailerIdText" text="Retailer" />
+                       </header>
+                     </Column>
+                     <Column id="trackingDash_reatailerTaxColumn" hAlign="Center">
+                       <header>
+                         <Text id="trackingDash_reatailerTaxText" text="Retailer Tax No" />
+                       </header>
+                     </Column>
                      
                      <Column hAlign="Center" id="trackingDash_icQrColumn">
                        <header>
@@ -265,6 +314,8 @@
                         <Text id="trackingDash_mfgDateValue" text="{fragmentModel>ManufactureDt}" />
                         <Text id="trackingDash_expDateValue" text="{fragmentModel>ExpiryDt}" />
                        <Text id="trackingDash_icidValue" text="{fragmentModel>ICID}"/>
+                       <Text id="trackingDash_retailerValue" text="{fragmentModel>RetailerId}"/>
+                       <Text id="trackingDash_retailertaxNoValue" text="{fragmentModel>RetailerTaxNo}"/>
                        <Link id="trackingDash_icQrCode" text="{fragmentModel>ICQRCode}" press="onDashboardICQrCode"/> 
                        
                      </cells>
@@ -316,19 +367,24 @@
                          <Text text="Serial No" id="trackingDash_serialNoText" />
                        </header>
                      </Column>
-                      
-                     
-                     
-                     
-                    
+
+                     <Column hAlign="Center" id="trackingDash_retailerColumn">
+                       <header>
+                         <Text text="Retailer" id="trackingDash_retailerText" />
+                       </header>
+                     </Column>
+                     <Column hAlign="Center" id="trackingDash_retailerTaxColumn">
+                       <header>
+                         <Text text="Retailer Tax No" id="trackingDash_retailerTaxText" />
+                       </header>
+                     </Column>
+                  
                      <Column hAlign="Center" id="trackingDash_boxQrCodeColumn">
                        <header>
                          <Text text=" Box Qr Code" id="trackingDash_boxQrCodeText" />
                        </header>
                      </Column>
                      
-                     
-                   
                    </columns>
                    <ColumnListItem class="borderedRow" id="trackingDash_boxCoumnList">
                      <cells>
@@ -338,6 +394,8 @@
                           <Text id="trackingDash_boxMfgValue" text="{boxModelData>ManufactureDt}" />
                         <Text id="trackingDash_boxExpDateValue" text="{boxModelData>ExpiryDt}" />
                        <Text id="trackingDash_boxSerialNoValue" text="{boxModelData>SerialNo}"/>
+                       <Text id="trackingDash_retailerIDValue" text="{boxModelData>RetailerId}"/>
+                       <Text id="trackingDash_retailerTaxValue" text="{boxModelData>RetailerTaxNo}"/>
                        
                        <Link text="{boxModelData>BoxQRCode}" id="trackingDash_boxQrCodeLink" press="onDashboardBoxQrCode"/>
                      

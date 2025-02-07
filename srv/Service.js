@@ -517,33 +517,139 @@ module.exports = async (srv) => {
 
         //Tracking dashboard javascript logics and methods
 
+        // srv.on('getProductionTrackingDashboardData', async (req) => {
+        //     try {
+        //         const { OCID } = req.data;
+    
+        //         if (!OCID) {
+        //             return req.reject(400, "'OCID' is a required parameter.");
+        //         }
+    
+        //         const outerContainerData = await externalService.run(SELECT.one.from('OuterContainer')
+        //             .columns([
+        //                 'OCID',
+        //                 'OCQRCode',
+        //                 'OCQRCodeURL',
+        //                 'BatchID',
+        //                 'status',
+        //                 'DealerId',
+        //                 'DealerName',
+        //                 'SalesOrder	'
+        //             ])
+        //             .where({ OCID }));
+    
+        //         if (!outerContainerData) {
+        //             return req.reject(404, "No data found for the provided OCID.");
+        //         }
+    
+        //         const { BatchID } = outerContainerData;
+    
+    
+        //         const response = {
+        //             OCID: outerContainerData.OCID,
+        //             OCQRCode: outerContainerData.OCQRCode,
+        //             OCQRCodeURL: outerContainerData.OCQRCodeURL,
+        //             BatchID: outerContainerData.BatchID,
+        //             status: outerContainerData.status,
+        //             DealerId: outerContainerData.DealerId || "",
+        //             DealerName: outerContainerData.DealerName || "",
+        //             SalesOrder: outerContainerData.SalesOrder || "",
+        //             ManufactureDt: null,
+        //             ExpiryDt: null,
+        //             ProductionOrder: null,
+        //             Material: null,
+        //             ICs: []
+        //         };
+    
+        //         const icData = await externalService.run( SELECT.from('MaterialBox')
+        //             .columns([
+        //                 'IC_ICID as ICID',
+        //                 'IC_ICQRCode as ICQRCode',
+        //                 'IC_ICQRCodeURL as ICQRCodeURL',
+        //                 'SerialNo',
+        //                 'BoxQRCode',
+        //                 'BoxQRCodeURL',
+        //                 'IC.OC_OCID'
+        //             ])
+        //             .where({ 'IC.OC_OCID': OCID, BatchID }));
+    
+        //         if (icData.length > 0) {
+        //             const groupedICs = icData.reduce((acc, item) => {
+        //                 if (!acc[item.ICID]) {
+        //                     acc[item.ICID] = {
+        //                         ICID: item.ICID,
+        //                         ICQRCode: item.ICQRCode,
+        //                         ICQRCodeURL: item.ICQRCodeURL,
+        //                         Boxes: []
+        //                     };
+        //                 }
+        //                 acc[item.ICID].Boxes.push({
+        //                     SerialNo: item.SerialNo,
+        //                     BoxQRCode: item.BoxQRCode,
+        //                     BoxQRCodeURL: item.BoxQRCodeURL
+        //                 });
+        //                 return acc;
+        //             }, {});
+        //             response.ICs = Object.values(groupedICs);
+        //         }
+    
+        //         const batchDetails = await ZTRACK_TRACE_SRV.run(
+        //             SELECT.one
+        //                 .from('zbatchdetails_Track')
+        //                 .columns(['ManufactureDt', 'ExpiryDt', 'ProductionOrder', 'Material'])
+        //                 .where({ BatchNo: BatchID })
+        //         );
+    
+        //         if (batchDetails) {
+        //             Object.assign(response, {
+        //                 ManufactureDt: batchDetails.ManufactureDt,
+        //                 ExpiryDt: batchDetails.ExpiryDt,
+        //                 ProductionOrder: batchDetails.ProductionOrder,
+        //                 Material: batchDetails.Material
+        //             });
+        //         }
+    
+        //         return response;
+    
+        //     } catch (error) {
+        //         console.error("Error in getProductionTrackingDashboardData:", error);
+        //         return req.reject(500, error.message || "Internal Server Error");
+        //     }
+        // });
+
         srv.on('getProductionTrackingDashboardData', async (req) => {
             try {
                 const { OCID } = req.data;
-    
+        
                 if (!OCID) {
                     return req.reject(400, "'OCID' is a required parameter.");
                 }
-    
-                const outerContainerData = await externalService.run(SELECT.one.from('OuterContainer')
-                    .columns([
-                        'OCID',
-                        'OCQRCode',
-                        'OCQRCodeURL',
-                        'BatchID',
-                        'status',
-                        'DealerId',
-                        'DealerName'
-                    ])
-                    .where({ OCID }));
-    
+        
+              
+                const outerContainerData = await externalService.run(
+                    SELECT.one.from('OuterContainer')
+                        .columns([
+                            'OCID',
+                            'OCQRCode',
+                            'OCQRCodeURL',
+                            'BatchID',
+                            'status',
+                            'DealerId',
+                            'DealerName',
+                            'SalesOrder',
+                            'RetailerId',
+                            'RetailerTaxNo'
+                        ])
+                        .where({ OCID })
+                );
+        
                 if (!outerContainerData) {
                     return req.reject(404, "No data found for the provided OCID.");
                 }
-    
+        
                 const { BatchID } = outerContainerData;
-    
-    
+        
+                
                 const response = {
                     OCID: outerContainerData.OCID,
                     OCQRCode: outerContainerData.OCQRCode,
@@ -552,25 +658,38 @@ module.exports = async (srv) => {
                     status: outerContainerData.status,
                     DealerId: outerContainerData.DealerId || "",
                     DealerName: outerContainerData.DealerName || "",
+                    SalesOrder: outerContainerData.SalesOrder || "",
+                    RetailerId: outerContainerData.RetailerId || "",
+                    RetailerTaxNo: outerContainerData.RetailerTaxNo || "",
                     ManufactureDt: null,
                     ExpiryDt: null,
                     ProductionOrder: null,
                     Material: null,
                     ICs: []
                 };
-    
-                const icData = await externalService.run( SELECT.from('MaterialBox')
-                    .columns([
-                        'IC_ICID as ICID',
-                        'IC_ICQRCode as ICQRCode',
-                        'IC_ICQRCodeURL as ICQRCodeURL',
-                        'SerialNo',
-                        'BoxQRCode',
-                        'BoxQRCodeURL',
-                        'IC.OC_OCID'
-                    ])
-                    .where({ 'IC.OC_OCID': OCID, BatchID }));
-    
+        
+               
+                const icData = await externalService.run(
+                    SELECT.from('MaterialBox')
+                        .columns([
+                            'IC_ICID as ICID',
+                            'IC_ICQRCode as ICQRCode',
+                            'IC_ICQRCodeURL as ICQRCodeURL',
+                            'IC.RetailerId',    
+                            'IC.RetailerTaxNo',
+                            'SerialNo',
+                            'BoxQRCode',
+                            'BoxQRCodeURL',
+                            'RetailerId as BoxRetailerId',      
+                            'RetailerTaxNo as BoxRetailerTaxNo'   
+                        ])
+                        .where({ 'IC.OC_OCID': OCID, BatchID })
+                );
+                console.log("data",icData);
+                
+             
+                
+        
                 if (icData.length > 0) {
                     const groupedICs = icData.reduce((acc, item) => {
                         if (!acc[item.ICID]) {
@@ -578,26 +697,31 @@ module.exports = async (srv) => {
                                 ICID: item.ICID,
                                 ICQRCode: item.ICQRCode,
                                 ICQRCodeURL: item.ICQRCodeURL,
+                                RetailerId: item.IC_RetailerId|| "", 
+                                RetailerTaxNo: item.IC_RetailerTaxNo || "",
                                 Boxes: []
                             };
                         }
                         acc[item.ICID].Boxes.push({
                             SerialNo: item.SerialNo,
                             BoxQRCode: item.BoxQRCode,
-                            BoxQRCodeURL: item.BoxQRCodeURL
+                            BoxQRCodeURL: item.BoxQRCodeURL,
+                            RetailerId: item.BoxRetailerId || "",
+                            RetailerTaxNo: item.BoxRetailerTaxNo || "" 
                         });
                         return acc;
                     }, {});
                     response.ICs = Object.values(groupedICs);
                 }
-    
+        
+              
                 const batchDetails = await ZTRACK_TRACE_SRV.run(
                     SELECT.one
                         .from('zbatchdetails_Track')
                         .columns(['ManufactureDt', 'ExpiryDt', 'ProductionOrder', 'Material'])
                         .where({ BatchNo: BatchID })
                 );
-    
+        
                 if (batchDetails) {
                     Object.assign(response, {
                         ManufactureDt: batchDetails.ManufactureDt,
@@ -606,14 +730,16 @@ module.exports = async (srv) => {
                         Material: batchDetails.Material
                     });
                 }
-    
+        
                 return response;
-    
+        
             } catch (error) {
                 console.error("Error in getProductionTrackingDashboardData:", error);
                 return req.reject(500, error.message || "Internal Server Error");
             }
         });
+        
+        
 
         srv.on('getBatchOCValueHelp', async (req) => {
             const { BatchID, ManufactureDt } = req.data;

@@ -48,7 +48,7 @@ Content-Type: application/json
 
 ####
 
-GET http://localhost:4004/odata/v4/qrmappingservice/getProductionTrackingDashboardData?OCID='20250127OC10000000'
+GET http://localhost:4004/odata/v4/qrmappingservice/getProductionTrackingDashboardData?OCID='20250206OC10000002'
 
 
 ###
