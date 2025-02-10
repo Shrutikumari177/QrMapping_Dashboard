@@ -53,17 +53,30 @@ sap.ui.define(["sap/ui/core/Fragment","sap/ui/model/Filter","sap/ui/model/Filter
        },
 
       // code is using for searching the item
-       _valueHelpLiveSearch : function(oEvent,filterField){
-            let sValue = oEvent.getParameter("value")|| oEvent.getParameter("query") || oEvent.getParameter("newValue")
-            let oBinding = oEvent.getSource().getBinding("items")
-            if(sValue){
-               let oFilter = new sap.ui.model.Filter(filterField,FilterOperator.Contains,sValue)
-               oBinding.filter([oFilter])
-            }
-            else{
-               oBinding.filter([])
-            }
-       },
+       _valueHelpLiveSearch: function (oEvent, filterField, id,oControl) {
+        let sValue = oEvent.getParameter("value") || oEvent.getParameter("query") || oEvent.getParameter("newValue");
+        let oBinding = oEvent.getSource().getBinding("items");
+        if (sValue) {
+            let oFilter = new sap.ui.model.Filter(filterField, FilterOperator.Contains, sValue);
+            oBinding.filter([oFilter]);
+        } else {
+            oBinding.filter([]);
+        }
+        if(id && oControl){
+        let oValueHelp = oControl.getView().byId(id);
+        if (oValueHelp) {
+            oBinding.attachEventOnce("dataReceived", function (oData) {
+                let aItems = oBinding.getCurrentContexts();
+                if (!aItems || aItems.length === 0) {
+                    oValueHelp.setNoDataText("No Data");
+                } else {
+                    oValueHelp.setNoDataText(""); 
+                }
+            });
+        }
+      }
+    },
+    
 
     // read data based on property 
     _getSingleEntityDataWithParam : async function(oControl,url,property,param){

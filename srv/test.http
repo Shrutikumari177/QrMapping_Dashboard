@@ -54,8 +54,13 @@ GET http://localhost:4004/odata/v4/qrmappingservice/getProductionTrackingDashboa
 ###
 GET http://localhost:4004/odata/v4/qrmappingservice/getDistinctOrderType
 
+
 ###
-GET http://localhost:4004/odata/v4/qrmappingservice/getSalesOrderTypevalues?SalesOrderType='OR'
+GET http://localhost:33061/odata/v4/qrmappingservice/zsalesheaddata_tracktrace
+
+
+###
+GET http://localhost:33061/odata/v4/qrmappingservice/getSalesOrderTypevalues?SalesOrderType='OR'&Dealer='1100000003'
 
 
 ###

@@ -279,6 +279,8 @@ module.exports = async (srv) => {
       srv.on('READ', 'zplant_soTrack', req => ZTRACKTRACE_VALUEHELP_SRV.run(req.query)); 
       srv.on('READ', 'zsalesorder_trackso', req => ZTRACKTRACE_VALUEHELP_SRV.run(req.query)); 
       srv.on('READ', 'zsalesorderdetails_so', req => ZTRACKTRACE_VALUEHELP_SRV.run(req.query)); 
+            srv.on('READ', 'zsalesheaddata_tracktrace', req => ZTRACKTRACE_VALUEHELP_SRV.run(req.query)); 
+
 
 
       const IRMSZAPI_SALES_ORDER_SRV = await cds.connect.to("IRMSZAPI_SALES_ORDER_SRV");
@@ -325,83 +327,52 @@ module.exports = async (srv) => {
         }
     });
 
-    srv.on('tSalesOrderTypevalues', async (req) => {
-        const { SalesOrderType } = req.data;
     
-        try {
-            const SalesOrderDetails = await ZTRACKTRACE_VALUEHELP_SRV.run(
-                SELECT
-                    .from('zsalesorderdetails_so')
-                    .columns(['SalesOrg', 'DistChannel', 'Division','salesorgText','DistchaText','DivText'])
-                    .where({ SalesOrderType: SalesOrderType })
-            );
-    
-            if (!SalesOrderDetails || SalesOrderDetails.length === 0) {
-                return req.reject(404, "No sales order details found for the given Sales Order Type.");
-            }
-            console.log("running", SalesOrderDetails)
-    
-            const salesOrgSet = new Set();
-            const distChannelSet = new Set();
-            const divisionSet = new Set();
-    
-            SalesOrderDetails.forEach(detail => {
-                salesOrgMap.set(detail.SalesOrg, { SalesOrg: detail.SalesOrg, salesorgText: detail.salesorgText });
-                distChannelMap.set(detail.DistChannel, { DistChannel: detail.DistChannel, DistchaText: detail.DistchaText });
-                divisionMap.set(detail.Division, { Division: detail.Division, DivText: detail.DivText });
-            });
-            console.log("adda",SalesOrderDetails)
-    
-            const uniqueSalesOrgs = Array.from(salesOrgSet);
-            const uniqueDistChannels = Array.from(distChannelSet);
-            const uniqueDivisions = Array.from(divisionSet);
-    
-            return {
-                SalesOrgs: uniqueSalesOrgs,
-                DistChannels: uniqueDistChannels,
-                Divisions: uniqueDivisions
-            };
-    
-        } catch (error) {
-            console.error("Error in getSalesOrderTypevalues:", error);
-            return req.reject(500, `An unexpected error occurred: ${error.message}`);
-        }
-    });
-
     srv.on('getSalesOrderTypevalues', async (req) => {
-        const { SalesOrderType } = req.data;
+        const { SalesOrderType, Dealer } = req.data; 
     
         try {
             const SalesOrderDetails = await ZTRACKTRACE_VALUEHELP_SRV.run(
                 SELECT
-                    .from('zsalesorderdetails_so')
-                    .columns(['SalesOrg', 'DistChannel', 'Division', 'salesorgText', 'DistchaText', 'DivText'])
-                    .where({ SalesOrderType: SalesOrderType })
+                    .from('zsalesheaddata_tracktrace')
+                    .columns([
+                        'Sales_org as SalesOrg',
+                        'Chnl_Dis as DistChannel',
+                        'Division',
+                        'Plant',
+                        'Sales_org_Text as salesorgText',
+                        'Chnl_Dis_Text as DistchaText',
+                        'Division_Text as DivText',
+                        'PlantDesc'
+                    ])
+                    .where({
+                        SalesOrderType: SalesOrderType,
+                        Sold_Party: Dealer 
+                    })
             );
     
             if (!SalesOrderDetails || SalesOrderDetails.length === 0) {
-                return req.reject(404, "No sales order details found for the given Sales Order Type.");
+                return req.reject(404, "No sales order details found for the given Sales Order Type and Dealer.");
             }
-            console.log("running", SalesOrderDetails);
+         
     
             const salesOrgMap = new Map();
             const distChannelMap = new Map();
             const divisionMap = new Map();
+            const plantMap = new Map();
     
             SalesOrderDetails.forEach(detail => {
                 salesOrgMap.set(detail.SalesOrg, { SalesOrg: detail.SalesOrg, salesorgText: detail.salesorgText });
                 distChannelMap.set(detail.DistChannel, { DistChannel: detail.DistChannel, DistchaText: detail.DistchaText });
                 divisionMap.set(detail.Division, { Division: detail.Division, DivText: detail.DivText });
+                plantMap.set(detail.Plant, { Plant: detail.Plant, PlantDesc: detail.PlantDesc });
             });
     
-            const uniqueSalesOrgs = Array.from(salesOrgMap.values());
-            const uniqueDistChannels = Array.from(distChannelMap.values());
-            const uniqueDivisions = Array.from(divisionMap.values());
-    
             return {
-                SalesOrgs: uniqueSalesOrgs,
-                DistChannels: uniqueDistChannels,
-                Divisions: uniqueDivisions
+                SalesOrgs: Array.from(salesOrgMap.values()),
+                DistChannels: Array.from(distChannelMap.values()),
+                Divisions: Array.from(divisionMap.values()),
+                Plants: Array.from(plantMap.values())
             };
     
         } catch (error) {
@@ -409,6 +380,7 @@ module.exports = async (srv) => {
             return req.reject(500, `An unexpected error occurred: ${error.message}`);
         }
     });
+    
     
 
     srv.on('getScannedOCData', async (req) => {

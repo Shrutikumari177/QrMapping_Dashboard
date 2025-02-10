@@ -8,11 +8,11 @@
         search="onplantValueHelpSearch"
         liveChange="onplantValueHelpSearch"
         confirm="onplantValueConfirmItem"
-        items="{/zplant_soTrack}"
+       items="{plantDataModel>/}"
         initialFocus="SearchField">
         <StandardListItem id="_IDGenStandardListItem7" 
-            title="{Plant}"
-            description="{Description}"
+            title="{plantDataModel>Plant}"
+            description="{plantDataModel>PlantDesc}"
             iconDensityAware="false"
             iconInset="false"
             type="Active" />

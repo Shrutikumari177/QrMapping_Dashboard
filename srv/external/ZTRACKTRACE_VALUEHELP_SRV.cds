@@ -1,4 +1,4 @@
-/* checksum : 05f7c8fc383c0a3c333363a9cd2a052a */
+/* checksum : 0956c40ee0af3c0b962b9fb434a021e5 */
 @cds.external : true
 @m.IsDefaultEntityContainer : 'true'
 @sap.message.scope.supported : 'true'
@@ -80,6 +80,62 @@ entity ZTRACKTRACE_VALUEHELP_SRV.zplant_soTrack {
   @sap.label : 'Description'
   @sap.quickinfo : 'Description of Storage Location'
   Description : String(16);
+};
+
+@cds.external : true
+@cds.persistence.skip : true
+@sap.creatable : 'false'
+@sap.updatable : 'false'
+@sap.deletable : 'false'
+@sap.content.version : '1'
+@sap.label : 'zsalesheaddata tracktrace'
+entity ZTRACKTRACE_VALUEHELP_SRV.zsalesheaddata_tracktrace {
+  @sap.display.format : 'UpperCase'
+  @sap.label : 'Sales Order'
+  @sap.quickinfo : 'Language key for sales document type'
+  key SalesOrderType : String(4) not null;
+  @sap.display.format : 'UpperCase'
+  @sap.label : 'Plant'
+  key Plant : String(4) not null;
+  @sap.display.format : 'UpperCase'
+  @sap.label : 'Sold To Party'
+  @sap.quickinfo : 'Customer Number'
+  key Sold_Party : String(10) not null;
+  @sap.display.format : 'UpperCase'
+  @sap.label : 'Sales Organization'
+  key Sales_org : String(4) not null;
+  @sap.display.format : 'UpperCase'
+  @sap.label : 'Distribution Channel'
+  key Chnl_Dis : String(2) not null;
+  @sap.display.format : 'UpperCase'
+  @sap.label : 'Division'
+  key Division : String(2) not null;
+  @sap.label : 'Sold To Party Text'
+  Sold_Party_Text : String(70);
+  @sap.display.format : 'UpperCase'
+  @sap.label : 'Partner Function'
+  Patnr_Fn : String(2);
+  @sap.label : 'Partner Function Text'
+  @sap.quickinfo : 'Name'
+  Partnr_Fn_Text : String(20);
+  @sap.display.format : 'UpperCase'
+  @sap.label : 'Ship To Party'
+  @sap.quickinfo : 'Customer number of business partner'
+  Ship_Party : String(10);
+  @sap.label : 'Ship To Party Text'
+  Ship_Party_Text : String(70);
+  @sap.label : 'Sales Organization Text'
+  @sap.quickinfo : 'Name'
+  Sales_org_Text : String(20);
+  @sap.label : 'Distribution Channel Text'
+  @sap.quickinfo : 'Name'
+  Chnl_Dis_Text : String(20);
+  @sap.label : 'Plant'
+  @sap.quickinfo : 'Name'
+  PlantDesc : String(30);
+  @sap.label : 'Division Text'
+  @sap.quickinfo : 'Name'
+  Division_Text : String(20);
 };
 
 @cds.external : true

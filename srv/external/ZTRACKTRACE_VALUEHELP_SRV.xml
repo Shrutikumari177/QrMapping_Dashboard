@@ -60,6 +60,31 @@
                 <Property Name="Plant" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="UpperCase" sap:label="Plant"/>
                 <Property Name="Description" Type="Edm.String" MaxLength="16" sap:label="Description" sap:quickinfo="Description of Storage Location"/>
             </EntityType>
+            <EntityType Name="zsalesheaddata_tracktraceType" sap:label="zsalesheaddata tracktrace" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="SalesOrderType"/>
+                    <PropertyRef Name="Plant"/>
+                    <PropertyRef Name="Sold_Party"/>
+                    <PropertyRef Name="Sales_org"/>
+                    <PropertyRef Name="Chnl_Dis"/>
+                    <PropertyRef Name="Division"/>
+                </Key>
+                <Property Name="SalesOrderType" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="UpperCase" sap:label="Sales Order" sap:quickinfo="Language key for sales document type"/>
+                <Property Name="Plant" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="UpperCase" sap:label="Plant"/>
+                <Property Name="Sold_Party" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:label="Sold To Party" sap:quickinfo="Customer Number"/>
+                <Property Name="Sales_org" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="UpperCase" sap:label="Sales Organization"/>
+                <Property Name="Chnl_Dis" Type="Edm.String" Nullable="false" MaxLength="2" sap:display-format="UpperCase" sap:label="Distribution Channel"/>
+                <Property Name="Division" Type="Edm.String" Nullable="false" MaxLength="2" sap:display-format="UpperCase" sap:label="Division"/>
+                <Property Name="Sold_Party_Text" Type="Edm.String" MaxLength="70" sap:label="Sold To Party Text"/>
+                <Property Name="Patnr_Fn" Type="Edm.String" MaxLength="2" sap:display-format="UpperCase" sap:label="Partner Function"/>
+                <Property Name="Partnr_Fn_Text" Type="Edm.String" MaxLength="20" sap:label="Partner Function Text" sap:quickinfo="Name"/>
+                <Property Name="Ship_Party" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Ship To Party" sap:quickinfo="Customer number of business partner"/>
+                <Property Name="Ship_Party_Text" Type="Edm.String" MaxLength="70" sap:label="Ship To Party Text"/>
+                <Property Name="Sales_org_Text" Type="Edm.String" MaxLength="20" sap:label="Sales Organization Text" sap:quickinfo="Name"/>
+                <Property Name="Chnl_Dis_Text" Type="Edm.String" MaxLength="20" sap:label="Distribution Channel Text" sap:quickinfo="Name"/>
+                <Property Name="PlantDesc" Type="Edm.String" MaxLength="30" sap:label="Plant" sap:quickinfo="Name"/>
+                <Property Name="Division_Text" Type="Edm.String" MaxLength="20" sap:label="Division Text" sap:quickinfo="Name"/>
+            </EntityType>
             <EntityType Name="zsalesorderdetails_soType" sap:label="Detail of sales order for so" sap:content-version="1">
                 <Key>
                     <PropertyRef Name="SalesOrderType"/>
@@ -97,6 +122,7 @@
                 <EntitySet Name="Zdivision_sotrack" EntityType="ZTRACKTRACE_VALUEHELP_SRV.Zdivision_sotrackType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
                 <EntitySet Name="ZMaterial_ValueHelp" EntityType="ZTRACKTRACE_VALUEHELP_SRV.ZMaterial_ValueHelpType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
                 <EntitySet Name="zplant_soTrack" EntityType="ZTRACKTRACE_VALUEHELP_SRV.zplant_soTrackType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <EntitySet Name="zsalesheaddata_tracktrace" EntityType="ZTRACKTRACE_VALUEHELP_SRV.zsalesheaddata_tracktraceType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
                 <EntitySet Name="zsalesorderdetails_so" EntityType="ZTRACKTRACE_VALUEHELP_SRV.zsalesorderdetails_soType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
                 <EntitySet Name="zsalesorder_trackso" EntityType="ZTRACKTRACE_VALUEHELP_SRV.zsalesorder_tracksoType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
                 <EntitySet Name="zsalesorg_track" EntityType="ZTRACKTRACE_VALUEHELP_SRV.zsalesorg_trackType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>

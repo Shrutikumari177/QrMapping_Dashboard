@@ -11,10 +11,11 @@ service qrmappingservice {
         SalesOrderType : String;
     };
 
-    function getSalesOrderTypevalues(SalesOrderType : String)            returns array of {
+    function getSalesOrderTypevalues(SalesOrderType : String, Dealer:String)            returns array of {
         SalesOrg : String;
         DistChannel : String;
         Division : String;
+        Plant :String;
     };
 
     function getScannedOCData(OCID : String)                             returns array of {
@@ -301,6 +302,9 @@ service qrmappingservice {
                 ProductionOrder,
                 OrderList
         };
+         entity zsalesheaddata_tracktrace as projection on ZTRACKTRACE_VALUEHELP_SRV.zsalesheaddata_tracktrace
+    {        key SalesOrderType, key Plant, key Sold_Party, key Sales_org, key Chnl_Dis, key Division, Sold_Party_Text, Patnr_Fn, Partnr_Fn_Text, Ship_Party, Ship_Party_Text, Sales_org_Text, Chnl_Dis_Text, PlantDesc, Division_Text     }    
+;
 
     entity MaterialBox                 as projection on QrGeneratorApp_edmx.MaterialBox;
     entity InnerContainer              as projection on QrGeneratorApp_edmx.InnerContainer;
