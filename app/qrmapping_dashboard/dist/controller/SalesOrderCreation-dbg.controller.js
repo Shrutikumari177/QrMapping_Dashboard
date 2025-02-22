@@ -1,3 +1,4 @@
+
 sap.ui.define([
     "sap/ui/core/mvc/Controller",
     "sap/m/MessageToast",
@@ -38,18 +39,73 @@ sap.ui.define([
         },
 
         //dealer value help selection method
-        onCustomerVendorValueConfirmItem: function (oEvent) {
+        onCustomerVendorValueConfirmItem: async function (oEvent) {
             let oSelectedItem = oEvent.getParameter("selectedItem");
-            let dealerDesc = this.byId("dealerDessc")
+            let dealerDesc = this.byId("dealerDessc");
             if (oSelectedItem) {
                 let sSelectedDealerNo = oSelectedItem.getTitle();
-                selectedDealerName = oSelectedItem.getDescription();
                 this.getView().byId("salesOrder_dealer").setValue(sSelectedDealerNo);
-                dealerDesc ? dealerDesc.setVisible(true) && dealerDesc.setValue(selectedDealerName) : console.warn("Dealer name field not Found")
+                let selectedDealerName = oSelectedItem.getDescription();
+                if (dealerDesc) {
+                    dealerDesc.setVisible(true);
+                    dealerDesc.setValue(selectedDealerName);
+                } else {
+                    console.warn("Dealer name field not found");
+                }        
+                let sOrderType = this.getView().byId("salesOrder_salesOrderType").getValue();        
+                if (sOrderType && sSelectedDealerNo) {
+                    try {
+                        let oData = await this._getSingleEntityDataWithMulitpleParam(sOrderType, sSelectedDealerNo);
+                        
+                        if (oData.length > 0) {
+                            let { DistChannel, DistchaText } = oData[0].DistChannels[0];
+                            let { Division, DivText } = oData[0].Divisions[0];
+                            let { SalesOrg, salesorgText } = oData[0].SalesOrgs[0];
+        
+                            this.setValueInInputFields([
+                                { "salesOrder_distChannel": DistChannel },
+                                { "salesOrder_distChannelDesc": DistchaText },
+                                { "salesOrder_division": Division },
+                                { "salesOrder_divisionDesc": DivText },
+                                { "salesOrder_salesOrg": SalesOrg },
+                                { "salesOrder_salesOrgDesc": salesorgText }
+                            ]);
+        
+                            let orderTypeModel3 = new JSONModel(oData[0].Plants);
+                            this.getView().setModel(orderTypeModel3, "plantDataModel");
+        
+                            this.byId("salesOrder_distChannelDesc").setVisible(true);
+                            this.byId("salesOrder_salesOrgDesc").setVisible(true);
+                            this.byId("salesOrder_divisionDesc").setVisible(true);
+                        }
+                    } catch (error) {
+                        console.error("Error occurred while fetching data:", error);
+                    }
+                } else {
+                    console.warn("Both Sales Order Type and Dealer must be selected before fetching data.");
+                }
             }
+        
             oEvent.getSource().getBinding("items").filter([]);
-        },
+        },        
 
+        setValueInInputFields: function (inputData) {
+            if (Array.isArray(inputData)) {
+                inputData.forEach(item => {
+                    let inputId = Object.keys(item)[0]; 
+                    let inputValue = item[inputId]; 
+                    
+                    let oInputField = this.getView().byId(inputId);
+                    if (oInputField) {
+                        oInputField.setValue(inputValue); 
+                    } else {
+                        console.warn("Input field with ID", inputId, "not found");
+                    }
+                });
+            } else {
+                console.warn("Invalid input data passed to setValueInInputFields");
+            }
+        },        
         //open plant value help dialog 
         onPlantTypeValueHelp: function () {
             HelperFunction._openValueHelpDialog(this, "plantValueHelpValueHelp", "com.ingenx.qrmappingdashboard.fragments.soPlant")
@@ -138,16 +194,63 @@ sap.ui.define([
       
 
         // order type value help selection method
-        onsalesTypeValueConfirmItem: async function (oEvent) {
-            let selectedItem = HelperFunction._valueHelpSelectedValue(oEvent,this,"salesOrder_salesOrderType");
-            let oData = await HelperFunction._getSingleEntityDataWithParam(this,"getSalesOrderTypevalues","SalesOrderType",selectedItem)
-                let orderTypeModel = new JSONModel(oData[0].DistChannels)
-                this.getView().setModel(orderTypeModel,"distDataModel")
-                let orderTypeModel1 = new JSONModel(oData[0].Divisions)
-                this.getView().setModel(orderTypeModel1,"DivisionDataModel")
-                let orderTypeModel2 = new JSONModel(oData[0].SalesOrgs)
-                this.getView().setModel(orderTypeModel2,"salesOrgDataModel")
-        },
+        onsalesTypeValueConfirmItem: function (oEvent) {
+            let sOrderType = HelperFunction._valueHelpSelectedValue(oEvent,this,"salesOrder_salesOrderType");
+            let sDealer = this.getView().byId("salesOrder_dealer").getValue();
+        
+            if (sOrderType && sDealer) {
+                this._getSingleEntityDataWithMulitpleParam(sOrderType, sDealer).then(oData => {
+                    if (oData.length > 0) {
+                        let { DistChannel, DistchaText } = oData[0].DistChannels[0];
+                        let { Division, DivText } = oData[0].Divisions[0];
+                        let { SalesOrg, salesorgText } = oData[0].SalesOrgs[0];
+        
+                        this.setValueInInputFields([
+                            { "salesOrder_distChannel": DistChannel },
+                            { "salesOrder_distChannelDesc": DistchaText },
+                            { "salesOrder_division": Division },
+                            { "salesOrder_divisionDesc": DivText },
+                            { "salesOrder_salesOrg": SalesOrg },
+                            { "salesOrder_salesOrgDesc": salesorgText }
+                        ]);
+        
+                        let orderTypeModel3 = new JSONModel(oData[0].Plants);
+                        this.getView().setModel(orderTypeModel3, "plantDataModel");
+        
+                        this.byId("salesOrder_distChannelDesc").setVisible(true);
+                        this.byId("salesOrder_salesOrgDesc").setVisible(true);
+                        this.byId("salesOrder_divisionDesc").setVisible(true);
+                    }
+                }).catch(error => console.error("Error while fetching data:", error));
+            } else {
+                console.warn("Both Sales Order Type and Dealer must be selected.");
+            }
+        },        
+
+        _getSingleEntityDataWithMulitpleParam: async function (orderType, dealer) {
+            if (orderType && dealer) {
+                let url = "getSalesOrderTypevalues";
+                let oModel = this.getOwnerComponent().getModel();
+                let oBindList = oModel.bindList(`/${url}(SalesOrderType='${orderType}',Dealer='${dealer}')`);
+        
+                try {
+                    let oContext = await oBindList.requestContexts(0, Infinity);
+                    let oData = oContext.map(context => context.getObject());
+        
+                    if (oData.length === 0) {
+                        sap.m.MessageToast.show("Data Not Found");
+                        return [];
+                    }
+                    return oData;
+                } catch (error) {
+                    console.error(`Error occurred while reading data from the '${url}' entity:`, error);
+                    return [];
+                }
+            } else {
+                console.warn("Sales Order Type and Dealer must be selected.");
+                return [];
+            }
+        },        
 
         // Submit sales order data 
         onClickSumbitButton:async function () {

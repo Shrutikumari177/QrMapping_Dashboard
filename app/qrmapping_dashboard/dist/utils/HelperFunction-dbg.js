@@ -93,6 +93,11 @@ sap.ui.define(["sap/ui/core/Fragment","sap/ui/model/Filter","sap/ui/model/Filter
         console.log(`Error occurred while reading data from the '${url}' entity : `, error)
        }
     },
+   
+   
+    
+  
+    
 
     //read all data of a entity  
     _getSingleEntityData :async function(oControl,url){
